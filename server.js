@@ -2,11 +2,125 @@ const WebSocket = require('ws');
 const http = require('http');
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.writeHead(200, { 'Content-Type': 'text/plain' 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
   res.end('Domino EVO Server OK');
+
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
 });
 
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({ server 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
 
 // Salas de jogo: roomId -> { players: [ws, ws], state: {} }
 const rooms = {};
@@ -15,7 +129,45 @@ function createAllTiles() {
   const t = [];
   for (let i = 0; i <= 6; i++)
     for (let j = i; j <= 6; j++)
-      t.push({ a: i, b: j });
+      t.push({ a: i, b: j 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
   return t;
 }
 
@@ -32,7 +184,45 @@ function broadcast(room, msg) {
   rooms[room].players.forEach(ws => {
     if (ws.readyState === WebSocket.OPEN)
       ws.send(JSON.stringify(msg));
-  });
+  
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
 }
 
 function sendTo(ws, msg) {
@@ -73,8 +263,84 @@ function startGame(roomId) {
       boneyardCount: boneyard.length,
       oppHandCount: room.state.hands[1 - idx].length,
       scores: room.state.scores
-    });
-  });
+    
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
+  
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
 }
 
 function tileEnds(tile, side, leftEnd, rightEnd) {
@@ -115,7 +381,45 @@ function endGame(roomId, winnerMsg) {
     message: winnerMsg,
     scores: s.scores,
     handSums: [sum0, sum1]
-  });
+  
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
 }
 
 function checkBlock(roomId) {
@@ -129,7 +433,45 @@ function checkBlock(roomId) {
     if (sum0 < sum1) { rooms[roomId].state.scores[0] += sum1; msg = 'Bloqueou! Jogador 1 vence!'; }
     else if (sum1 < sum0) { rooms[roomId].state.scores[1] += sum0; msg = 'Bloqueou! Jogador 2 vence!'; }
     else msg = 'Empate no bloqueio!';
-    broadcast(roomId, { type: 'game_over', message: msg, scores: rooms[roomId].state.scores });
+    broadcast(roomId, { type: 'game_over', message: msg, scores: rooms[roomId].state.scores 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
     return true;
   }
   return false;
@@ -150,8 +492,84 @@ function sendStateUpdate(roomId) {
       boardRightEnd: s.boardRightEnd,
       scores: s.scores,
       canPass: s.canPass && s.currentTurn === idx
-    });
-  });
+    
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
+  
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
 }
 
 wss.on('connection', (ws) => {
@@ -159,8 +577,84 @@ wss.on('connection', (ws) => {
   const pingInterval = setInterval(() => {
     if (ws.readyState === ws.OPEN) ws.ping();
   }, 30000);
-  ws.on('pong', () => {});
-  ws.on('close', () => { clearInterval(pingInterval); });
+  ws.on('pong', () => {
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
+  ws.on('close', () => { clearInterval(pingInterval); 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
   ws.on('message', (raw) => {
     let msg;
     try { msg = JSON.parse(raw); } catch { return; }
@@ -171,7 +665,45 @@ wss.on('connection', (ws) => {
       const room = rooms[roomId];
 
       if (room.players.length >= 2) {
-        sendTo(ws, { type: 'error', message: 'Sala cheia!' });
+        sendTo(ws, { type: 'error', message: 'Sala cheia!' 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
         return;
       }
 
@@ -181,13 +713,238 @@ wss.on('connection', (ws) => {
       room.players.push(ws);
 
       const playerNames = room.players.map(p => p.playerName);
-      sendTo(ws, { type: 'joined', playerIndex: ws.playerIndex, roomId, playerNames });
+      sendTo(ws, { type: 'joined', playerIndex: ws.playerIndex, roomId, playerNames 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
 
-      if (room.players.length === 2) {
-        broadcast(roomId, { type: 'opponent_joined' });
+});
+
+      
+// If room is BOT, add bot player
+if (roomId === 'BOT' && room.players.length === 1) {
+  // Create bot
+  const bot = {
+    isBot: true,
+    playerName: 'Computador',
+    roomId: 'BOT'
+  };
+  room.players.push(bot);
+  room.state = {
+    tiles: createAllTiles(),
+    playersHands: [[], []],
+    boneyard: [],
+    board: [],
+    boardLeft: null,
+    boardRight: null,
+    currentTurn: 0,
+    scores: [0, 0],
+    canPass: false
+  };
+  // Deal cards
+  const shuffled = shuffle(room.state.tiles);
+  room.state.playersHands[0] = shuffled.slice(0, 7);
+  room.state.playersHands[1] = shuffled.slice(7, 14);
+  room.state.boneyard = shuffled.slice(14);
+  
+  sendTo(bot, {type:'game_start',myIndex:1,myHand:room.state.playersHands[1],currentTurn:0,boneyardCount:room.state.boneyard.length,oppHandCount:room.state.playersHands[0].length,scores:[0,0]
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
+  sendTo(room.players[0], {type:'game_start',myIndex:0,myHand:room.state.playersHands[0],currentTurn:0,boneyardCount:room.state.boneyard.length,oppHandCount:room.state.playersHands[1].length,scores:[0,0]
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
+  
+  // Start bot moves
+  botPlay(roomId);
+  return;
+}
+
+if (room.players.length === 2) {
+        broadcast(roomId, { type: 'opponent_joined' 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
         setTimeout(() => startGame(roomId), 500);
       } else {
-        sendTo(ws, { type: 'waiting', message: 'Aguardando oponente...' });
+        sendTo(ws, { type: 'waiting', message: 'Aguardando oponente...' 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
       }
     }
 
@@ -204,19 +961,171 @@ wss.on('connection', (ws) => {
       const tile = hand[tileIdx];
       const oriented = tileEnds(tile, msg.side, s.boardLeftEnd, s.boardRightEnd);
       if (!oriented) {
-        sendTo(ws, { type: 'error', message: 'Peça não encaixa!' });
+        sendTo(ws, { type: 'error', message: 'Peça não encaixa!' 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
         return;
       }
 
       if (s.board.length === 0) {
-        s.board.push({ tile: oriented });
+        s.board.push({ tile: oriented 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
         s.boardLeftEnd = oriented.a;
         s.boardRightEnd = oriented.b;
       } else if (msg.side === 'left') {
-        s.board.unshift({ tile: oriented });
+        s.board.unshift({ tile: oriented 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
         s.boardLeftEnd = oriented.a;
       } else {
-        s.board.push({ tile: oriented });
+        s.board.push({ tile: oriented 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
         s.boardRightEnd = oriented.b;
       }
 
@@ -272,16 +1181,206 @@ wss.on('connection', (ws) => {
         room.rematchVotes = 0;
         startGame(ws.roomId);
       } else {
-        broadcast(ws.roomId, { type: 'rematch_waiting' });
+        broadcast(ws.roomId, { type: 'rematch_waiting' 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
       }
     }
-  });
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
+      }
+    }
+  
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
 
   ws.on('close', () => {
     if (!ws.roomId || !rooms[ws.roomId]) return;
-    broadcast(ws.roomId, { type: 'opponent_left' });
+    broadcast(ws.roomId, { type: 'opponent_left' 
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
     delete rooms[ws.roomId];
-  });
+  
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
+
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
 });
 
 const PORT = process.env.PORT || 3000;
@@ -289,7 +1388,45 @@ const PORT = process.env.PORT || 3000;
 setInterval(() => {
   require('https').get('https://domino-evo.onrender.com', (res) => {
     console.log('Keep-alive:', res.statusCode);
-  }).on('error', () => {});
+  }).on('error', () => {
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
 }, 14 * 60 * 1000);
 
 server.listen(PORT, () => {
@@ -298,7 +1435,83 @@ server.listen(PORT, () => {
   setInterval(() => {
     https.get('https://domino-evo.onrender.com', () => {
       console.log('Keep-alive ping enviado');
-    }).on('error', () => {});
+    }).on('error', () => {
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
+});
   }, 14 * 60 * 1000);
+
+// Bot simple logic
+function botPlay(roomId) {
+  const room = rooms[roomId];
+  if (!room || room.players.length < 2) return;
+  
+  const bot = room.players.find(p => p.isBot);
+  const human = room.players.find(p => !p.isBot);
+  if (!bot || !human) return;
+  
+  // Wait a bit then play
+  setTimeout(() => {
+    const hand = room.state.botHand;
+    const boardLeft = room.state.boardLeft;
+    const boardRight = room.state.boardRight;
+    
+    // Find playable tile
+    let tileIdx = -1;
+    for (let i = 0; i < hand.length; i++) {
+      const t = hand[i];
+      if (t.a === boardLeft || t.b === boardLeft || t.a === boardRight || t.b === boardRight) {
+        tileIdx = i;
+        break;
+      }
+    }
+    
+    if (tileIdx >= 0) {
+      const tile = hand[tileIdx];
+      const side = (tile.a === boardLeft || tile.b === boardLeft) ? 'left' : 'right';
+      bot.send(JSON.stringify({type:'place',tileIndex:tileIdx,side}));
+    } else if (room.state.boneyard.length > 0) {
+      bot.send(JSON.stringify({type:'draw'}));
+    } else {
+      bot.send(JSON.stringify({type:'pass'}));
+    }
+  }, 1500 + Math.random() * 2000);
+}
+
 });
 # Rebuild trigger Mon May 11 22:46:45 WEST 2026
