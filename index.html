@@ -129,7 +129,7 @@ function joinRoom(){
   const roomId = input || 'EVO' + Math.random().toString(36).substr(2,5).toUpperCase();
   document.getElementById('room-input').value = roomId;
 
-  setLobbyMsg('A conectar...');
+  setLobbyMsg('A conectar...'); console.log('Connecting to:', SERVER_URL);
 
   ws = new WebSocket(SERVER_URL);
 
