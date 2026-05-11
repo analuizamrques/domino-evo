@@ -72,7 +72,7 @@ button.rematch{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}button.rematch
 <div id="game">
  <div id="info-bar">
  <div id="turn-indicator">🎮</div>
- <div>🟢 <span id="my-score">0</span> | <span id="opp-score">0</span> 🔵</div>
+ <div>🟢 <span id="my-name">Tu</span>: <span id="my-score">0</span> | <span id="opp-name">Oponente</span>: <span id="opp-score">0</span> 🔵</div>
  <div style="color:#9ca3af;font-size:12px">Sala: <span id="room-label">-</span></div>
  </div>
  <div id="opp-area">
@@ -114,7 +114,7 @@ function joinRoom(){
  ws=new WebSocket(SERVER_URL);
  ws.onopen=()=>{
  setLobbyMsg('✅ Ligado! A entrar...');
- ws.send(JSON.stringify({type:'join',roomId}));
+ ws.send(JSON.stringify({type:'join',roomId,playerName:document.getElementById('player-name').value || 'Jogador'}));
  };
  ws.onerror=()=>setLobbyMsg('❌ Erro. Tenta novamente.');
  ws.onmessage=(e)=>handleMessage(JSON.parse(e.data));
@@ -124,6 +124,7 @@ function handleMessage(msg){
  switch(msg.type){
  case 'joined':
  myIndex=msg.playerIndex;
+ if(msg.playerNames){document.getElementById('my-name').textContent=msg.playerNames[myIndex]||'Tu';}
  document.getElementById('room-display').style.display='block';
  document.getElementById('room-code-display').textContent=msg.roomId;
  document.getElementById('room-label').textContent=msg.roomId;
@@ -132,7 +133,8 @@ function handleMessage(msg){
  case 'waiting':setLobbyMsg('⏳ Aguardando oponente...');break;
  case 'opponent_joined':setLobbyMsg('🎮 Oponente entrou! A iniciar...');break;
  case 'game_start':
- myIndex=msg.myIndex;myHand=msg.myHand;currentTurn=msg.currentTurn;boneyardCount=msg.boneyardCount;
+ myIndex=msg.myIndex;
+ if(msg.playerNames){document.getElementById('my-name').textContent=msg.playerNames[myIndex]||'Tu';document.getElementById('opp-name').textContent=msg.playerNames[1-myIndex]||'Oponente';}myHand=msg.myHand;currentTurn=msg.currentTurn;boneyardCount=msg.boneyardCount;
  oppHandCount=msg.oppHandCount;myScore=msg.scores[myIndex];oppScore=msg.scores[1-myIndex];
  board=[];boardLeftEnd=null;boardRightEnd=null;selectedIdx=null;gameOver=false;canPass=false;
  document.getElementById('overlay').classList.remove('show');
