@@ -4,7 +4,11 @@
   "description": "Servidor WebSocket para Dominó EVO multiplayer",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "install": "npm install ws"
+  },
+  "engines": {
+    "node": ">=14"
   },
   "dependencies": {
     "ws": "^8.16.0"
