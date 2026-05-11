@@ -196,7 +196,7 @@ function handleMessage(msg){
       document.getElementById('lobby').style.display = 'none';
       document.getElementById('game').style.display = 'flex';
       render();
-      setMsg(currentTurn === myIndex ? '🎮 Começas tu! Seleciona uma peça.' : '⏳ Oponente começa...');
+      setMsg((currentTurn === myIndex ? '🎮 Começas tu!' : '⏳ Oponente começa') + ' [tu=' + myIndex + ' vez=' + currentTurn + ']');
       break;
 
     case 'state_update':
@@ -213,11 +213,8 @@ function handleMessage(msg){
       selectedIdx = null;
       gameOver = false;
       render();
-      if(currentTurn === myIndex){
-        if(canPass) setMsg('Sem jogadas! Passa a vez.');
-        else if(boneyardCount > 0 && !myHand.some(t=>canPlayTileLocal(t))) setMsg('Sem jogadas! Compra uma peça.');
-        else setMsg('✅ Tua vez! Seleciona uma peça.');
-      } else {
+      setMsg((currentTurn === myIndex ? '✅ Tua vez!' : '⏳ Vez do oponente') + ' [tu=' + myIndex + ' vez=' + currentTurn + ']');
+      break;
         setMsg('⏳ Vez do oponente...');
       }
       break;
