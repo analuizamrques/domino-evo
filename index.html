@@ -138,7 +138,10 @@ function joinRoom(){
     return;
   }
 
-  ws.onopen = () => setLobbyMsg('✅ Ligado! A entrar na sala...');
+  ws.onopen = () => {
+    setLobbyMsg('✅ Ligado! A entrar na sala...');
+    ws.send(JSON.stringify({ type: 'join', roomId }));
+  };
 
   ws.onerror = (e) => setLobbyMsg('❌ Erro WebSocket. O Render pode estar a dormir. Espera 30s e tenta de novo.');
 
