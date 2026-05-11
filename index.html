@@ -129,23 +129,27 @@ function joinRoom(){
   const roomId = input || 'EVO' + Math.random().toString(36).substr(2,5).toUpperCase();
   document.getElementById('room-input').value = roomId;
 
-  setLobbyMsg('A conectar...'); console.log('Connecting to:', SERVER_URL);
+  setLobbyMsg('A conectar a ' + SERVER_URL + '...');
 
-  ws = new WebSocket(SERVER_URL);
+  try {
+    ws = new WebSocket(SERVER_URL);
+  } catch(err) {
+    setLobbyMsg('❌ Erro ao criar WebSocket: ' + err.message);
+    return;
+  }
 
-  ws.onopen = () => {
-    ws.send(JSON.stringify({ type: 'join', roomId }));
-  };
+  ws.onopen = () => setLobbyMsg('✅ Ligado! A entrar na sala...');
 
-  ws.onerror = () => setLobbyMsg('❌ Erro de ligação. Verifica o servidor.');
+  ws.onerror = (e) => setLobbyMsg('❌ Erro WebSocket. O Render pode estar a dormir. Espera 30s e tenta de novo.');
 
   ws.onmessage = (e) => {
     const msg = JSON.parse(e.data);
+    setLobbyMsg('📨 Mensagem: ' + msg.type);
     handleMessage(msg);
   };
 
-  ws.onclose = () => {
-    if (!gameOver) setLobbyMsg('Ligação perdida. Recarrega a página.');
+  ws.onclose = (e) => {
+    setLobbyMsg('❌ Ligação fechada. Código: ' + e.code + ' — ' + (e.reason || 'sem motivo'));
   };
 }
 
