@@ -61,11 +61,7 @@ button.rematch{background:linear-gradient(135deg,#3b82f6,#1d4ed8)}button.rematch
  <div class="lobby-card">
  <div style="color:#9ca3af;font-size:14px;text-align:center">Cria uma sala ou entra com o código</div>
  <input id="room-input" placeholder="Código (ex: EVO123)" maxlength="10"/>
- <select id="game-mode" style="width:100%;padding:14px;border-radius:12px;border:2px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.4);color:#fff;font-size:15px;text-align:center;outline:none;margin-bottom:12px">
- <option value="online">🌐 Jogar Online</option>
- <option value="bot">🤖 vs Computador</option>
- </select>
- <button class="btn-join" onclick="selectMode()">🎮 JOGAR</button>
+ <button class="btn-join" onclick="joinRoom()">🎮 ENTRAR / CRIAR</button>
  <div id="lobby-msg"></div>
  <div id="room-display" style="display:none;text-align:center;color:#4ade81;font-size:14px">
  Compartilha:<br>
@@ -207,10 +203,10 @@ function joinBot(){
  ws.onclose = (e) => {if(!gameOver){setLobbyMsg('Jogo terminado!');}};
 }
 
-function selectMode(){
-  const mode=document.getElementById('game-mode').value;
-  if(mode==='bot')joinBot();
-  else joinRoom();
+// 
+  // 
+  // 
+  // 
 }
 
 </script>
