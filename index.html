@@ -161,6 +161,7 @@ function handleMessage(msg){
 
     case 'joined':
       myIndex = msg.playerIndex;
+      console.log("Meu índice:", myIndex);
       document.getElementById('room-display').style.display = 'block';
       document.getElementById('room-code-display').textContent = msg.roomId;
       document.getElementById('room-label').textContent = msg.roomId;
@@ -178,6 +179,7 @@ function handleMessage(msg){
 
     case 'game_start':
       myIndex = msg.myIndex;
+      console.log("game_start - meu índice:", myIndex, "vez:", msg.currentTurn);
       myHand = msg.myHand;
       currentTurn = msg.currentTurn;
       boneyardCount = msg.boneyardCount;
@@ -358,6 +360,11 @@ function updateButtons(){
   document.getElementById('btn-right').disabled=!canPlace;
   document.getElementById('btn-draw').disabled=!(isMyTurn&&boneyardCount>0&&!canPass);
   document.getElementById('btn-pass').disabled=!(isMyTurn&&canPass);
+  // Garante botões sempre visíveis
+  document.getElementById('btn-left').style.display='inline-block';
+  document.getElementById('btn-right').style.display='inline-block';
+  document.getElementById('btn-draw').style.display='inline-block';
+  document.getElementById('btn-pass').style.display='inline-block';
 }
 
 function setMsg(m){document.getElementById('msg').textContent=m}
