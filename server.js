@@ -177,9 +177,11 @@ wss.on('connection', (ws) => {
 
       ws.roomId = roomId;
       ws.playerIndex = room.players.length;
+      ws.playerName = msg.playerName || 'Jogador';
       room.players.push(ws);
 
-      sendTo(ws, { type: 'joined', playerIndex: ws.playerIndex, roomId });
+      const playerNames = room.players.map(p => p.playerName);
+      sendTo(ws, { type: 'joined', playerIndex: ws.playerIndex, roomId, playerNames });
 
       if (room.players.length === 2) {
         broadcast(roomId, { type: 'opponent_joined' });
