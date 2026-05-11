@@ -196,7 +196,7 @@ function showOverlay(title,msg){document.getElementById('overlay-title').textCon
 
 function joinBot(){
  const name = document.getElementById('player-name').value || 'Tu';
- document.getElementById('room-input').value = 'BOT';
+ document.getElementById('room-input').value = '';
  setLobbyMsg('A iniciar jogo vs Computador...');
  ws = new WebSocket(SERVER_URL);
  ws.onopen = () => {
