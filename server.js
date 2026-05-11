@@ -277,5 +277,12 @@ wss.on('connection', (ws) => {
 });
 
 const PORT = process.env.PORT || 3000;
+// Keep-alive: ping every 14 min to prevent sleep
+setInterval(() => {
+  require('https').get('https://domino-evo.onrender.com', (res) => {
+    console.log('Keep-alive:', res.statusCode);
+  }).on('error', () => {});
+}, 14 * 60 * 1000);
+
 server.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
 # Rebuild trigger Mon May 11 22:46:45 WEST 2026
