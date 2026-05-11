@@ -177,81 +177,11 @@ wss.on('connection', (ws) => {
 
       ws.roomId = roomId;
       ws.playerIndex = room.players.length;
-      ws.playerName = msg.playerName || 'Jogador';
       room.players.push(ws);
 
-      const playerNames = room.players.map(p => p.playerName);
-      sendTo(ws, { type: 'joined', playerIndex: ws.playerIndex, roomId, playerNames });
+      sendTo(ws, { type: 'joined', playerIndex: ws.playerIndex, roomId });
 
-      
-// BOT handler - automatic player
-if (roomId === 'BOT' && room.players.length === 1) {
-  const bot = { isBot: true };
-  room.players.push(bot);
-  
-  // Create game state
-  const all = shuffle(createAllTiles());
-  const hand0 = all.slice(0, 7);
-  const hand1 = all.slice(7, 14);
-  const boneyard = all.slice(14);
-  
-  room.state = {
-    tiles: all,
-    botHand: hand1,
-    boneyard: boneyard,
-    board: [],
-    boardLeft: null,
-    boardRight: null,
-    currentTurn: 0
-  };
-  
-  // Send game_start to both
-  sendTo(room.players[0], {type:'game_start',myIndex:0,myHand:hand0,currentTurn:0,boneyardCount:boneyard.length,oppHandCount:hand1.length,scores:[0,0]});
-  sendTo(bot, {type:'game_start',myIndex:1,myHand:hand1,currentTurn:0,boneyardCount:boneyard.length,oppHandCount:hand0.length,scores:[0,0]});
-  
-  // Bot auto-play after 2 seconds
-  setTimeout(() => botAutoPlay(roomId), 2000);
-  return;
-}
-
-function botAutoPlay(roomId) {
-  const room = rooms[roomId];
-  if (!room || !room.state) return;
-  
-  const bot = room.players.find(p => p.isBot);
-  if (!bot) return;
-  
-  // Bot finds playable tile
-  const hand = room.state.botHand;
-  const left = room.state.boardLeft;
-  const right = room.state.boardRight;
-  
-  let tileIdx = -1, side = null;
-  for (let i = 0; i < hand.length; i++) {
-    const t = hand[i];
-    if (!left && !right) { tileIdx = i; side = 'right'; break; }
-    if (left && (t.a === left || t.b === left)) { tileIdx = i; side = 'left'; break; }
-    if (right && (t.a === right || t.b === right)) { tileIdx = i; side = 'right'; break; }
-  }
-  
-  // Draw or pass if no play
-  if (tileIdx < 0) {
-    if (room.state.boneyard.length > 0) {
-      const tile = room.state.boneyard.pop();
-      room.state.botHand.push(tile);
-      sendTo(bot, {type:'draw',tile:tile});
-    } else {
-      sendTo(bot, {type:'pass'});
-    }
-  } else {
-    sendTo(bot, {type:'place',tileIndex:tileIdx,side:side});
-  }
-  
-  // Next turn
-  room.state.currentTurn = 1 - room.state.currentTurn;
-}
-
-if (room.players.length === 2) {
+      if (room.players.length === 2) {
         broadcast(roomId, { type: 'opponent_joined' });
         setTimeout(() => startGame(roomId), 500);
       } else {
