@@ -284,5 +284,13 @@ setInterval(() => {
   }).on('error', () => {});
 }, 14 * 60 * 1000);
 
-server.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+server.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+  const https = require('https');
+  setInterval(() => {
+    https.get('https://domino-evo.onrender.com', () => {
+      console.log('Keep-alive ping enviado');
+    }).on('error', () => {});
+  }, 14 * 60 * 1000);
+});
 # Rebuild trigger Mon May 11 22:46:45 WEST 2026
