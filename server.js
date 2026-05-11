@@ -155,6 +155,12 @@ function sendStateUpdate(roomId) {
 }
 
 wss.on('connection', (ws) => {
+  // Ping every 30s to keep connection alive
+  const pingInterval = setInterval(() => {
+    if (ws.readyState === ws.OPEN) ws.ping();
+  }, 30000);
+  ws.on('pong', () => {});
+  ws.on('close', () => { clearInterval(pingInterval); });
   ws.on('message', (raw) => {
     let msg;
     try { msg = JSON.parse(raw); } catch { return; }

@@ -115,7 +115,7 @@ function joinRoom(){
  };
  ws.onerror=()=>setLobbyMsg('❌ Erro. Tenta novamente.');
  ws.onmessage=(e)=>handleMessage(JSON.parse(e.data));
- ws.onclose=(e)=>{if(!gameOver)setLobbyMsg('Ligação perdida ('+e.code+'). Recarrega.');};
+ ws.onclose=(e)=>{if(!gameOver){setLobbyMsg('Ligação perdida. A reconectar...');setTimeout(()=>joinRoom(),3000);}};
 }function handleMessage(msg){
  switch(msg.type){
  case 'joined':
