@@ -26,9 +26,9 @@ body{font-family:'Segoe UI',sans-serif;background:#1a472a;min-height:100vh;user-
 #info-bar{background:rgba(0,0,0,0.4);color:#fff;padding:8px 16px;display:flex;justify-content:space-between;align-items:center;font-size:13px;flex-shrink:0}
 #board-area{flex:1;overflow:auto;position:relative;padding:10px}
 #board{position:absolute;display:flex;align-items:center;flex-wrap:nowrap;min-width:200px;min-height:100px}
-#players-area{background:rgba(0,0,0,0.3);padding:8px;flex-shrink:0}
+#players-area{background:rgba(0,0,0,0.3);padding:8px;flex-shrink:0;padding-bottom:80px}
 #my-hand{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:4px;min-height:80px}
-#controls{background:rgba(0,0,0,0.5);padding:8px 16px;display:flex;gap:8px;justify-content:center;align-items:center;flex-shrink:0;flex-wrap:wrap}
+#controls{background:rgba(0,0,0,0.5);padding:8px 16px;display:flex;gap:8px;justify-content:center;align-items:center;flex-shrink:0;flex-wrap:wrap;position:fixed;bottom:0;left:0;right:0;z-index:50}
 #msg{color:#ffeb3b;font-size:13px;text-align:center;font-weight:600;flex:1;min-width:100%}
 .dom-piece{display:inline-flex;flex-direction:column;background:#fffde7;border:2px solid #333;border-radius:4px;cursor:pointer;box-shadow:2px 2px 4px rgba(0,0,0,0.5);transition:transform .15s;position:relative;flex-shrink:0}
 .dom-piece:hover{transform:translateY(-4px)}
