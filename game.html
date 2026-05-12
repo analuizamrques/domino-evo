@@ -986,8 +986,8 @@ function playSound(type) {
   gain.connect(audioCtx.destination);
   
   const sounds = {
-    select: { freq: 440, dur: 0.1, type: 'sine' },
-    play: { freq: 523, dur: 0.15, type: 'sine' },
+    select: { freq: 587, dur: 0.08, type: 'sine' },
+    play: { freq: 784, dur: 0.1, type: 'sine' },
     error: { freq: 200, dur: 0.2, type: 'sawtooth' },
     win: { freq: 659, dur: 0.3, type: 'sine' },
     pass: { freq: 330, dur: 0.1, type: 'triangle' },
