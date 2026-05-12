@@ -117,6 +117,38 @@ body::before {
 }
 .room-code-box p { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
+
+/* BOARD GLOW */
+#board-area::before {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: board-glow 3s ease-in-out infinite;
+}
+
+@keyframes board-glow {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* TURN INDICATOR */
+.turn-pill.active {
+  animation: turn-pulse 1s ease-in-out infinite;
+}
+
+@keyframes turn-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
+  50% { box-shadow: 0 0 20px 5px rgba(201,168,76,0.3); }
+}
+
+/* PIECE HOVER SOUND */
+.dom-piece:hover { playSound('select'); }
+
+
 /* ── GAME ── */
 #game {
   display: none; flex-direction: column;
@@ -196,8 +228,46 @@ body::before {
 .dom-piece {
   display: inline-flex; flex-direction: column;
   background: var(--piece-bg);
-  border: 1.5px solid var(--piece-border);
-  border-radius: 5px;
+  border: 2px solid var(--piece-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+.dom-piece:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(201,168,76,0.3), 0 0 20px rgba(201,168,76,0.2);
+  border-color: var(--gold);
+}
+.dom-piece.playable {
+  animation: pulse-gold 1.5s ease-in-out infinite;
+}
+.dom-piece.selected {
+  transform: translateY(-12px);
+  box-shadow: 0 16px 32px rgba(201,168,76,0.4);
+  border-color: var(--gold2);
+}
+.dom-piece.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.dom-piece.disabled:hover { transform: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 4px 12px rgba(201,168,76,0.2); }
+  50% { box-shadow: 0 4px 20px rgba(201,168,76,0.5), 0 0 30px rgba(201,168,76,0.3); }
+}
+
+@keyframes play-tile {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2) rotate(5deg); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.played-tile {
+  animation: play-tile 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
   cursor: pointer;
   box-shadow: 2px 3px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.6);
   transition: transform 0.15s, box-shadow 0.15s;
@@ -458,6 +528,44 @@ body::before {
 // CONFIG
 // ══════════════════════════════════════
 const SERVER_URL = 'wss://domino-evo.onrender.com';
+
+
+// ══════════════════════════════════════
+// SOUNDS (Web Audio API)
+// ══════════════════════════════════════
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playSound(type) {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  
+  const sounds = {
+    select: { freq: 440, dur: 0.1, type: 'sine' },
+    play: { freq: 523, dur: 0.15, type: 'sine' },
+    error: { freq: 200, dur: 0.2, type: 'sawtooth' },
+    win: { freq: 659, dur: 0.3, type: 'sine' },
+    pass: { freq: 330, dur: 0.1, type: 'triangle' },
+    join: { freq: 587, dur: 0.15, type: 'sine' }
+  };
+  
+  const s = sounds[type] || sounds.select;
+  osc.frequency.setValueAtTime(s.freq, audioCtx.currentTime);
+  osc.type = s.type;
+  gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + s.dur);
+  osc.start();
+  osc.stop(audioCtx.currentTime + s.dur);
+}
+
+function playTileSound() { playSound('play'); }
+function playErrorSound() { playSound('error'); }
+function playWinSound() { playSound('win'); }
+
+
 
 const PIP_LAYOUTS = {
   0: [],
