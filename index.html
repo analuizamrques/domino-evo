@@ -91,11 +91,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 }
 
 /* INFO BAR */
-#info-bar { display: flex; gap: 16px; justify-content: space-between; align-items: center; padding: 8px 16px; 
-  background: rgba(0,0,0,0.55); border-bottom: 1px solid var(--border);
-  padding: 7px 12px; display: flex; align-items: center; justify-content: space-between;
-  flex-shrink: 0; backdrop-filter: blur(10px); gap: 6px;
-}
+#info-bar { display: flex; gap: 16px; justify-content: space-between; align-items: center; padding: 8px 16px; background: rgba(0,0,0,0.55); border-bottom: 1px solid var(--border); flex-shrink: 0; backdrop-filter: blur(10px); }
 .player-badge { margin: 0 8px; 
   display: flex; align-items: center; gap: 7px;
   padding: 4px 10px; border-radius: 20px;
@@ -362,7 +358,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
       </div>
     </div>
 
-    <div style="display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;">
+    <div style="display:flex;flex-direction:column;gap:8px;align-items:center;justify-content:center;flex-shrink:0;">
       <span id="timer-section" style="padding:6px 12px;background:rgba(0,0,0,0.85);border:1px solid #d4af37;border-radius:20px;font-size:12px;color:#d4af37;">⏱ <span id="turn-timer">1:30</span></span>
 <span onclick="backToLobby()" style="background:#c1440e;border:none;border-radius:8px;padding:6px 10px;color:white;font-size:11px;cursor:pointer;">Sair</span>
  <div class="turn-pill" id="turn-pill">⏳</div>
