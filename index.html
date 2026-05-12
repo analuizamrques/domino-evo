@@ -195,6 +195,12 @@ body::before {
 
 
 
+.ctrl-btn.quit-new {
+  padding: 10px 15px;
+  background: #c1440e;
+  color: white;
+  border-radius: 8px;
+}
 .btn-quit {
   position: fixed;
   top: 10px;
@@ -716,7 +722,7 @@ body::before {
 
 <button onclick="toggleGameSound()" id="btn-sound" title="Som">🔇</button>
 <button onclick="showHistory()" id="btn-history" title="Histórico">📜</button>
-<button onclick="quitGame()" class="btn-quit" id="btn-quit" title="Desistir">❌ Sair</button>
+<!-- quit removed --> id="btn-quit" title="Desistir">❌ Sair</button>
 
 
 <!-- HISTORY PANEL -->
@@ -820,7 +826,8 @@ body::before {
       <button class="ctrl-btn place" id="btn-left" onclick="placePiece('left')" disabled>⬅ Esquerda</button>
       <button class="ctrl-btn place" id="btn-right" onclick="placePiece('right')" disabled>Direita ➡</button>
       <button class="ctrl-btn draw" id="btn-draw" onclick="drawTile()" disabled>🎴 Comprar</button>
-      <button class="ctrl-btn pass" id="btn-pass" onclick="passTurn()" disabled>⏩ Passar</button>
+      <button onclick="quitGame()" class="ctrl-btn quit-new" style="background:#c1440e;margin-left:10px;">❌ Sair</button>
+<button class="ctrl-btn pass" id="btn-pass" onclick="passTurn()" disabled>⏩ Passar</button>
     </div>
   </div>
 </div>
@@ -1496,4 +1503,3 @@ function showOverlay(trophy, title, msg) {
 </body>
 </html>
 setTimeout(()=>{try{playSound('select');console.log('[SOUND TEST]')}catch(e){}},1500);
-<!-- Updated: Tue May 12 12:42:31 WEST 2026 -->
