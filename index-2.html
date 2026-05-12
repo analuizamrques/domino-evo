@@ -839,7 +839,7 @@ body::before {
     </div>
 
     <div class="turn-pill" id="turn-pill">⏳ Aguardar</div>
-      <span id="timer" style="color:var(--gold);font-size:16px;font-weight:700;margin:0 10px;">⏱ <span id="turn-timer">2:00</span></span>
+      <span id="timer" style="color:var(--gold);font-size:16px;font-weight:700;margin:0 10px;">⏱ <span id="turn-timer">>1:30</span></span>
       <button onclick="location.reload()" style="background:none;border:2px solid #c1440e;border-radius:20px;color:#c1440e;cursor:pointer;font-size:12px;padding:4px 12px;margin-left:10px;">SAIR</button>
 
     <div class="player-badge opp" id="badge-opp">
@@ -998,7 +998,7 @@ let isAIMode = false;
 // ══════════════════════════════════════
 let turnTimer = null;
 let turnSeconds = 15;
-const TIMER_DURATION = 120; // 2 minutes
+const TIMER_DURATION = 90; // 1:30 per turn// 2 minutes
 
 function startTurnTimer() {
   turnSeconds = TIMER_DURATION;
@@ -1097,7 +1097,7 @@ function newAIGame() {
 
   const myMax = aiMyHand.reduce((m, t) => t.a === t.b && t.a > m ? t.a : m, -1);
   const oppMax = aiOppHand.reduce((m, t) => t.a === t.b && t.a > m ? t.a : m, -1);
-  currentTurn = myMax >= oppMax ? 0 : 1;
+  currentTurn = myMax >= oppMax ? 0 : 1; startTurnTimer();
 
   myHand = [...aiMyHand];
   oppHandCount = aiOppHand.length;
@@ -1167,7 +1167,7 @@ function aiMove() {
       setTimeout(aiMove, 800);
       return;
     } else {
-      currentTurn = 0;
+      currentTurn = 0; startTurnTimer();
       render();
   startTurnTimer();
       const myCanPlay = myHand.some(t => aiCanPlay(t));
@@ -1180,7 +1180,7 @@ function aiMove() {
 
   if (aiOppHand.length === 0) { aiEndGame('🤖 IA venceu! 😢'); return; }
 
-  currentTurn = 0;
+  currentTurn = 0; startTurnTimer();
   render();
   startTurnTimer();
   const myCanPlay = myHand.some(t => aiCanPlay(t));
