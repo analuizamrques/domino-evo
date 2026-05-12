@@ -1001,29 +1001,16 @@ let turnSeconds = 15;
 const TIMER_DURATION = 90; // 1:30 per turn// 2 minutes
 
 function startTurnTimer() {
-  turnSeconds = TIMER_DURATION;
-  const timerEl = document.getElementById('timer-seconds');
-  const timerDisp = document.getElementById('timer-display');
-  
-  if (timerDisp) timerDisp.style.display = 'block';
-  
+  turnSeconds = 90;
   if (turnTimer) clearInterval(turnTimer);
   turnTimer = setInterval(() => {
     turnSeconds--;
-    if (timerEl) timerEl.textContent = turnSeconds;
     const tt = document.getElementById("turn-timer");
-    if(tt)tt.textContent = Math.floor(turnSeconds/60)+":"+(turnSeconds%60).toString().padStart(2,"0");
-    
-    if (turnSeconds <= 99990) { // disabled
-      if (timerEl) timerEl.style.color = 'var(--red)';
-    }
-    
-    if (turnSeconds <= 0) { clearInterval(turnTimer); setMsg("Tempo esgotado! Perdes-te."); setTimeout(()=>location.reload(),3000); } else {
+    if(tt) tt.textContent = Math.floor(turnSeconds/60)+":"+(turnSeconds%60).toString().padStart(2,"0");
+    if(turnSeconds <= 0) {
       clearInterval(turnTimer);
-      // Auto pass when time runs out
-      if (canPass && currentTurn === myIndex) {
-        ws.send(JSON.stringify({type:'pass'}));
-      }
+      setMsg("Tempo esgotado! Perdes-te.");
+      setTimeout(()=>location.reload(),3000);
     }
   }, 1000);
 }
