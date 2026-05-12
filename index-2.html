@@ -1018,7 +1018,7 @@ function startTurnTimer() {
       if (timerEl) timerEl.style.color = 'var(--red)';
     }
     
-    if (turnSeconds <= -1) { // disabled
+    if (turnSeconds <= 0) { clearInterval(turnTimer); setMsg("Tempo esgotado! Perdes-te."); setTimeout(()=>location.reload(),3000); } else {
       clearInterval(turnTimer);
       // Auto pass when time runs out
       if (canPass && currentTurn === myIndex) {
