@@ -802,7 +802,7 @@ body::before {
     <div class="divider">Modo de Jogo</div>
 
     <div class="mode-btns">
-      <button class="btn btn-outline" onclick="this.innerHTML="TEST";document.getElementById('game').style.display='flex';document.getElementById('lobby').style.display='none'">🤖 Jogar vs IA</button>
+      <button class="btn btn-outline" onclick="start()">🤖 Jogar vs IA</button>
       <button class="btn btn-outline" onclick="document.getElementById('mp-section').style.display = 'flex'">👥 Multijogador</button>
     </div>
 
@@ -905,6 +905,8 @@ body::before {
 </div>
 
 <script>
+function start(){document.getElementById("game").style.display="flex";document.getElementById("lobby").style.display="none";}
+
 var audioCtx;
 // ══════════════════════════════════════
 // CONFIG
