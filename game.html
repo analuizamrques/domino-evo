@@ -7,11 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a0f;
-  --surface: #13131a;
-  --card: #1c1c27;
+  --bg: #f5f5f5;
+  --surface: #ffffff;
+  --card: #eeeeee;
   --border: #2a2a3a;
-  --gold: #e6b800;
+  --gold: #2563eb;
   --gold-bright: #f4cf57;
   --gold2: #f0d080;
   --cream: #f5f0e8;
@@ -19,10 +19,10 @@
   --green2: #40916c;
   --red: #c1440e;
   --blue: #1a4e8a;
-  --text: #f0ece4;
+  --text: #222222;
   --muted: #6b6880;
   --pip: #1a1a2e;
-  --piece-bg: #f5f0e8;
+  --piece-bg: #ffffff;
   --piece-border: #8a7a60;
   --shadow: 0 8px 32px rgba(0,0,0,0.6);
 }
@@ -223,12 +223,12 @@ body::before {
 
 /* Better piece glow */
 .dom-piece:hover {
-  box-shadow: 0 0 25px var(--gold), 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: none; var(--gold), 0 10px 30px rgba(0,0,0,0.5);
   border-color: var(--gold-bright);
 }
 
 /* Board glow */
-#board-area {
+#board-area { background: #e8e8e8; 
   box-shadow: inset 0 0 100px rgba(212, 175, 55, 0.1);
 }
 
@@ -273,7 +273,7 @@ body::before {
 }
 @keyframes turn-glow {
   0%, 100% { box-shadow: 0 0 5px var(--gold); }
-  50% { box-shadow: 0 0 25px var(--gold), 0 0 40px rgba(212,175,55,0.3); }
+  50% { box-shadow: none; var(--gold), 0 0 40px rgba(212,175,55,0.3); }
 }
 
 /* RESPONSIVE */
@@ -550,7 +550,7 @@ body::before {
 .player-badge.ai-badge .avatar { background: var(--red); color: #fff; }
 .player-badge .pname { font-weight: 600; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .player-badge .pts { color: var(--gold); font-weight: 700; font-size: 13px; }
-.turn-pill {
+.turn-pill { display: none; 
   font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
   padding: 5px 14px; border-radius: 20px;
   background: var(--card); border: 1px solid var(--border);
@@ -576,7 +576,7 @@ body::before {
 .opp-label { font-size: 11px; color: var(--muted); flex-shrink: 0; }
 
 /* BOARD */
-#board-area {
+#board-area { background: #e8e8e8; 
   flex: 1; overflow: auto; position: relative;
   background: radial-gradient(ellipse at center, #0d2a0d 0%, #050a05 100%);
 }
@@ -927,13 +927,13 @@ body::before {
     <div class="ctrl-btns">
       <button class="ctrl-btn place" id="btn-left" onclick="placePiece('left')" disabled>⬅ Esquerda</button>
       <button class="ctrl-btn place" id="btn-right" onclick="placePiece('right')" disabled>Direita ➡</button>
-      <button class="ctrl-btn draw" id="btn-draw" onclick="drawTile()" disabled>🎴 Comprar</button>
+      <button class="ctrl-btn draw" id="btn-draw" style="padding:15px 30px;font-size:16px;background:#22c55e;color:white;border:none;border-radius:8px;" onclick="drawTile()" disabled>🎴 Comprar</button>
       <button onclick="quitGame()" class="ctrl-btn quit-new" style="background:#c1440e;margin-left:10px;"> Sair</button>
 <!-- removed --> style="background:#1a4e8a;" title="Histórico">📜</button>
 <!-- removed --> title="Som">🔇</button>
 <!-- removed --> style="display:none;" title="Sair"></button>
 <button class="ctrl-btn" onclick="quitGame()" style="background:#c1440e;margin-left:10px;font-size:11px;padding:10px 15px;">SAIR</button>
-<button class="ctrl-btn pass" id="btn-pass" onclick="passTurn()" disabled>⏩ Passar</button>
+<button class="ctrl-btn" style="padding:15px 30px;font-size:16px;background:#2563eb;color:white;border:none;border-radius:8px;" id="btn-pass" onclick="passTurn()" disabled>⏩ Passar</button>
     </div>
   </div>
 </div>
