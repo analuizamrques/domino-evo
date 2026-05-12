@@ -277,8 +277,15 @@ wss.on('connection', (ws) => {
 
   ws.on('close', () => {
     if (!ws.roomId || !rooms[ws.roomId]) return;
-    broadcast(ws.roomId, { type: 'opponent_left' });
-    delete rooms[ws.roomId];
+    const room = rooms[ws.roomId];
+    const idx = room.players.indexOf(ws);
+    if (idx > -1) room.players.splice(idx, 1);
+    if (room.players.length > 0) {
+      broadcast(ws.roomId, { type: 'opponent_left' });
+    }
+    if (room.players.length === 0) {
+      delete rooms[ws.roomId];
+    }
   });
 });
 
