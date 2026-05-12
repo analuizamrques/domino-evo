@@ -11,7 +11,7 @@
   --surface: #13131a;
   --card: #1c1c27;
   --border: #2a2a3a;
-  --gold: #d4af37;
+  --gold: #e6b800;
   --gold-bright: #f4cf57;
   --gold2: #f0d080;
   --cream: #f5f0e8;
@@ -122,6 +122,9 @@ body::before {
 
 /* PIECE ENTRY ANIMATION */
 .dom-piece {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+
   animation: piece-enter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
 }
 
@@ -231,6 +234,11 @@ body::before {
 
 /* Better buttons */
 .ctrl-btn {
+  background: var(--green);
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+
   padding: 12px 20px;
   font-size: 14px;
 
@@ -246,6 +254,9 @@ body::before {
 
 /* Hand area glow */
 #my-hand {
+  background: linear-gradient(0deg, rgba(230,184,0,0.08) 0%, transparent 100%);
+  border-radius: 20px 20px 0 0;
+
   padding: 10px 20px 80px 20px;
 
   margin-bottom: 80px;
@@ -270,7 +281,10 @@ body::before {
   .lobby-card { padding: 20px 16px; }
   .lobby-logo { font-size: 40px; }
   .player-badge .pname { max-width: 50px; }
-  .dom-piece { width: 40px; height: 56px; }
+  .dom-piece {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+ width: 40px; height: 56px; }
   #opp-area { gap: 2px; }
   .opp-back { width: 16px; height: 26px; }
 }
@@ -505,11 +519,14 @@ body::before {
 #game {
   display: none; flex-direction: column;
   height: 100vh; overflow: hidden;
-  background: radial-gradient(ellipse at 50% 0%, #0d1f0d 0%, var(--bg) 70%);
+  background: linear-gradient(180deg, #0a0a12 0%, #12121a 50%, #0a0a12 100%);
 }
 
 /* INFO BAR */
 #info-bar {
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+
   background: rgba(0,0,0,0.5);
   border-bottom: 1px solid var(--border);
   padding: 8px 16px;
@@ -578,6 +595,9 @@ body::before {
 
 /* ── PEÇAS ── */
 .dom-piece {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+
   display: inline-flex; flex-direction: column;
   background: var(--piece-bg);
   border: 2px solid var(--piece-border);
@@ -682,6 +702,9 @@ body::before {
   padding: 8px 12px 100px;
 }
 #my-hand {
+  background: linear-gradient(0deg, rgba(230,184,0,0.08) 0%, transparent 100%);
+  border-radius: 20px 20px 0 0;
+
   padding: 10px 20px 80px 20px;
 
   margin-bottom: 80px;
@@ -710,6 +733,11 @@ body::before {
   display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
 }
 .ctrl-btn {
+  background: var(--green);
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+
   padding: 12px 20px;
   font-size: 14px;
 
@@ -781,6 +809,11 @@ body::before {
 @media (max-width: 480px) {
   .half { width: 28px; height: 28px; padding: 3px; gap: 1px; }
   .ctrl-btn {
+  background: var(--green);
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+
   padding: 12px 20px;
   font-size: 14px;
  padding: 8px 12px; font-size: 11px; }
