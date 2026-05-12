@@ -917,7 +917,7 @@ const SERVER_URL = 'wss://domino-evo.onrender.com';
 // ══════════════════════════════════════
 // SOUNDS (Web Audio API)
 // ══════════════════════════════════════
-function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext);if(audioCtx.state==='suspended')audioCtx.resume();}
+function initAudio(){alert("Audio init!");if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext);if(audioCtx.state==="suspended")audioCtx.resume();}
 
 // Init sound on first interaction
 let soundReady = false;
