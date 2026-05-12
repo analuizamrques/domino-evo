@@ -209,6 +209,53 @@ body::before {
   .dom-piece:active { transform: scale(0.95); }
 }
 
+
+
+/* INTUITIVE SIDE SELECTOR */
+.side-selector {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 50;
+}
+
+.side-btn {
+  padding: 16px 30px;
+  font-size: 18px;
+  font-weight: 700;
+  border: 3px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.side-btn:hover {
+  border-color: var(--gold);
+  transform: scale(1.05);
+}
+
+.side-btn.selected {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: #111;
+  box-shadow: 0 0 20px rgba(201,168,76,0.5);
+}
+
+/* ARROWS */
+.side-btn::before {
+  content: '◀ ';
+  font-size: 14px;
+}
+.side-btn[data-side="right"]::before {
+  content: '▶ ';
+}
+
+
 /* SCOREBOARD */
 .scoreboard {
   position: fixed;
@@ -662,7 +709,7 @@ body::before {
     </div>
 
     <div class="lobby-msg" id="lobby-msg"></div>
-    <button onclick="try{playSound('select');this.textContent='🔊 Som!'}catch(e){alert('Sound: '+e)}" class="btn btn-outline" style="font-size:11px;padding:6px 12px;margin-top:8px;">🔇 Test Som</button>
+    <button onclick="try{initAudio();playSound('select');this.textContent='🔊 Som Ligado!';this.style.background='var(--gold)';this.style.color='#111'}catch(e){}" class="btn btn-outline" style="font-size:12px;padding:8px 16px;margin-top:8px;">🔇 Ligar Som</button>
     <div class="room-code-box" id="room-code-box">
       <div class="code" id="room-code-display">—</div>
       <p>Partilha este código com o teu oponente</p>
@@ -749,6 +796,7 @@ const SERVER_URL = 'wss://domino-evo.onrender.com';
 // ══════════════════════════════════════
 // SOUNDS (Web Audio API)
 // ══════════════════════════════════════
+function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext);if(audioCtx.state==='suspended')audioCtx.resume();}
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 // Init sound on first interaction
@@ -793,6 +841,22 @@ function playSound(type) {
 function playTileSound() { playSound('play'); }
 function playErrorSound() { playSound('error'); }
 function playWinSound() { playSound('win'); }
+
+function showConfetti() {
+  const colors = ['var(--gold)', 'var(--green)', 'var(--cream)', '#ff6b6b', '#4ecdc4'];
+  for (let i = 0; i < 50; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.animationDuration = (2 + Math.random() * 2) + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 4000);
+    }, i * 30);
+  }
+}
+
 
 
 
@@ -1195,7 +1259,7 @@ function mpCanPlay(t) {
 // ══════════════════════════════════════
 // AÇÕES DO JOGADOR
 // ══════════════════════════════════════
-function placePiece(side) {
+function placePiece(side) { try{playSound('play');}catch(e){}
   if (isAIMode) { aiPlacePiece(side); return; }
   if (currentTurn !== myIndex || selectedIdx === null || gameOver) return;
   ws.send(JSON.stringify({type: 'place', tileIndex: selectedIdx, side}));
@@ -1235,6 +1299,7 @@ function backToLobby() {
 function selectTile(i) {
   const isMyTurn = isAIMode ? currentTurn === 0 : currentTurn === myIndex;
   if (!isMyTurn || gameOver) return;
+  if (selectedIdx !== i) try{playSound('select');}catch(e){}
   selectedIdx = (selectedIdx === i) ? null : i;
   renderMyHand();
   updateButtons();
