@@ -1104,6 +1104,7 @@ function newAIGame() {
   boneyardCount = aiBoneyard.length;
 
   render();
+  startTurnTimer();
   if (currentTurn === 1) {
     setMsg('🤖 IA começa...');
     setTimeout(aiMove, 1000);
@@ -1168,6 +1169,7 @@ function aiMove() {
     } else {
       currentTurn = 0;
       render();
+  startTurnTimer();
       const myCanPlay = myHand.some(t => aiCanPlay(t));
       if (!myCanPlay && aiBoneyard.length === 0) { aiEndByBlock(); return; }
       if (!myCanPlay) { canPass = true; setMsg('Sem jogadas! Compra ou passa.'); }
@@ -1180,6 +1182,7 @@ function aiMove() {
 
   currentTurn = 0;
   render();
+  startTurnTimer();
   const myCanPlay = myHand.some(t => aiCanPlay(t));
   if (!myCanPlay) {
     if (aiBoneyard.length > 0) setMsg('Sem jogadas! Compra uma peça.');
@@ -1224,6 +1227,7 @@ function aiDrawTile() {
   else if (aiBoneyard.length === 0) { canPass = true; setMsg('Sem mais peças! Passa a vez.'); }
   else setMsg('Ainda sem jogada. Compra mais.');
   render();
+  startTurnTimer();
 }
 
 function aiPassTurn() {
@@ -1240,6 +1244,7 @@ function aiEndGame(msg) {
   if (mySum < oppSum) myScore += oppSum;
   else if (oppSum < mySum) oppScore += mySum;
   render();
+  startTurnTimer();
   const won = msg.includes('Ganhaste');
   showOverlay(won ? '🏆' : '😢', msg, `Pontos — ${myName}: ${myScore} | IA: ${oppScore}`);
 }
@@ -1253,6 +1258,7 @@ function aiEndByBlock() {
   else if (oppS < myS) { oppScore += myS; msg = 'Bloqueou! IA venceu! 😢'; trophy = '😢'; }
   else { msg = 'Empate no bloqueio!'; trophy = '🤝'; }
   render();
+  startTurnTimer();
   showOverlay(trophy, msg, `Pontos — ${myName}: ${myScore} | IA: ${oppScore}`);
 }
 
@@ -1323,6 +1329,7 @@ function handleMessage(msg) {
       document.getElementById('overlay').classList.remove('show');
       launchGame();
       render();
+  startTurnTimer();
       setMsg(currentTurn === myIndex ? 'Começas tu! Seleciona uma peça.' : '⏳ Oponente começa...');
       break;
     case 'state_update':
@@ -1338,6 +1345,7 @@ function handleMessage(msg) {
       canPass = msg.canPass;
       selectedIdx = null; gameOver = false;
       render();
+  startTurnTimer();
       if (currentTurn === myIndex) {
         if (canPass) setMsg('Sem jogadas! Passa a vez.');
         else if (boneyardCount > 0 && !myHand.some(t => mpCanPlay(t))) setMsg('Sem jogadas! Compra uma peça.');
@@ -1349,6 +1357,7 @@ function handleMessage(msg) {
       myScore = msg.scores[myIndex];
       oppScore = msg.scores[1-myIndex];
       render();
+  startTurnTimer();
       const won = msg.message.includes(myIndex === 0 ? 'Jogador 1' : 'Jogador 2');
       showOverlay(won ? '🏆' : '😢', msg.message, `${myName}: ${myScore} pts | ${oppName}: ${oppScore} pts`);
       break;
