@@ -879,7 +879,7 @@ body::before {
       <button onclick="quitGame()" class="ctrl-btn quit-new" style="background:#c1440e;margin-left:10px;">❌ Sair</button>
 <button onclick="showHistory()" class="ctrl-btn history-ctrl" style="background:#1a4e8a;" title="Histórico">📜</button>
 <button onclick="toggleGameSound()" class="ctrl-btn sound-ctrl" title="Som">🔇</button>
-<button onclick="quitGame()" class="ctrl-btn quit-ctrl" title="Sair">❌</button>
+<button onclick="quitGame()" class="ctrl-btn quit-ctrl" style="display:none;" title="Sair">❌</button>
 <button class="ctrl-btn pass" id="btn-pass" onclick="passTurn()" disabled>⏩ Passar</button>
     </div>
   </div>
@@ -1420,6 +1420,9 @@ function selectTile(i) {
 // ══════════════════════════════════════
 // LAUNCH
 // ══════════════════════════════════════
+// Show quit button when game starts
+document.querySelectorAll('.quit-ctrl').forEach(b => b.style.display = 'inline-block');
+
 function launchGame() {
   document.getElementById('lobby').style.display = 'none';
   document.getElementById('game').style.display = 'flex';
