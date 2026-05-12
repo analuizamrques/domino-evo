@@ -464,7 +464,7 @@ function playSound(type) {
 
 function playLobbyMusic() {
   // Play lobby music from file
-  const audio = new Audio('https://analuizamrques.github.io/domino-evo/lobby-music.mp3');
+  const audio = new Audio('https://analuizamrques.github.io/domino-evo/lobby-music.mp3'); audio.volume = 0.5; audio.play().catch(e => console.log('Audio error:', e));
   audio.volume = 0.3;
   audio.play().catch(e => console.log('Audio play failed:', e));
   return;
