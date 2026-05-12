@@ -293,6 +293,11 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
   .ctrl-btn { padding: 8px 11px; font-size: 11px; }
   .lobby-card { padding: 22px 18px; }
 }
+
+#timer-section { position: fixed; top: 12px; left: 50%; transform: translateX(-50%); z-index: 100; padding: 8px 16px; background: rgba(0,0,0,0.85); border: 1px solid #d4af37; border-radius: 20px; }
+#timer-section span { color: #d4af37; font-size: 14px; font-weight: 600; }
+#timer-section .time { font-size: 22px; font-weight: 700; }
+
 </style>
 </head>
 <body>
@@ -579,7 +584,7 @@ function handleServerMsg(msg) {
       boardLeftEnd = msg.boardLeftEnd; boardRightEnd = msg.boardRightEnd;
       myScore = msg.scores[myIndex]; oppScore = msg.scores[1 - myIndex];
       canPass = msg.canPass; selectedIdx = null; gameOver = false;
-      render();
+      render(); startTimer();
       if (currentTurn === myIndex) {
         if (canPass) setMsg('Sem jogadas! Passa a vez.');
         else if (boneyardCount > 0 && !myHand.some(t => canPlayTile(t))) setMsg('Compra uma peça!');
@@ -589,7 +594,7 @@ function handleServerMsg(msg) {
     case 'game_over':
       gameOver = true;
       myScore = msg.scores[myIndex]; oppScore = msg.scores[1 - myIndex];
-      render();
+      render(); startTimer();
       const won = msg.message.toLowerCase().includes('jogador ' + (myIndex + 1)) || msg.message.includes('🎉');
       if (won) { showConfetti(); playSound('win'); }
       showOverlay(won ? '🏆' : '😢', msg.message, myName + ': ' + myScore + ' pts | ' + oppName + ': ' + oppScore + ' pts');
@@ -776,11 +781,11 @@ function doAIMoveSmart() {
       if (aiBoneyard.length > 0) {
         aiHand.push(aiBoneyard.pop());
         oppHandCount = aiHand.length; boneyardCount = aiBoneyard.length;
-        render();
+        render(); startTimer();
         setTimeout(doAIMoveSmart, 600);
         return;
       } else {
-        currentTurn = 0; canPass = false; render();
+        currentTurn = 0; canPass = false; render(); startTimer();
         if (checkBlock()) return;
         if (!myHand.some(t => canPlayTile(t))) { 
           canPass = true; setMsg('Sem jogadas! Passa.'); 
@@ -790,10 +795,10 @@ function doAIMoveSmart() {
       }
     }
     
-    if (aiHand.length === 0) { render(); endAIGame('IA venceu! 😢'); return; }
+    if (aiHand.length === 0) { render(); startTimer(); endAIGame('IA venceu! 😢'); return; }
     if (checkBlock()) return;
     
-    currentTurn = 0; canPass = false; render();
+    currentTurn = 0; canPass = false; render(); startTimer();
     if (!myHand.some(t => canPlayTile(t))) {
       if (aiBoneyard.length > 0) setMsg('Sem jogadas! Compra.');
       else { canPass = true; setMsg('Sem jogadas! Passa a vez.'); updateButtons(); }
@@ -828,9 +833,9 @@ function doAIMove() {
     }
     oppHandCount = aiHand.length; boneyardCount = aiBoneyard.length;
     if (placed) {
-      if (aiHand.length === 0) { render(); endAIGame('IA venceu! 😢'); return; }
+      if (aiHand.length === 0) { render(); startTimer(); endAIGame('IA venceu! 😢'); return; }
       if (checkBlock()) return;
-      currentTurn = 0; canPass = false; render();
+      currentTurn = 0; canPass = false; render(); startTimer();
       if (!myHand.some(t => canPlayTile(t))) {
         if (aiBoneyard.length > 0) setMsg('Sem jogadas! Compra uma peça.');
         else { canPass = true; setMsg('Sem jogadas! Passa a vez.'); updateButtons(); }
@@ -838,9 +843,9 @@ function doAIMove() {
     } else {
       if (aiBoneyard.length > 0) {
         aiHand.push(aiBoneyard.pop()); oppHandCount = aiHand.length; boneyardCount = aiBoneyard.length;
-        render(); setTimeout(doAIMove, 700);
+        render(); startTimer(); setTimeout(doAIMove, 700);
       } else {
-        currentTurn = 0; canPass = false; render();
+        currentTurn = 0; canPass = false; render(); startTimer();
         if (checkBlock()) return;
         if (!myHand.some(t => canPlayTile(t))) { canPass = true; setMsg('Sem jogadas! Passa.'); updateButtons(); }
         else setMsg('✅ Tua vez!');
@@ -875,7 +880,7 @@ function endAIGame(msg) {
   const myS = myHand.reduce((s,t)=>s+t.a+t.b,0);
   const aiS = aiHand.reduce((s,t)=>s+t.a+t.b,0);
   if (!msg.includes('Bloqueou')) { if (myS < aiS) myScore += aiS; else if (aiS < myS) oppScore += myS; }
-  render();
+  render(); startTimer();
   const won = msg.includes('Venceste') || msg.includes('🎉');
   if (won) { showConfetti(); playSound('win'); }
   showOverlay(won ? '🏆' : '😢', msg, myName+': '+myScore+' pts | '+oppName+': '+oppScore+' pts');
@@ -902,9 +907,9 @@ function placePiece(side) {
     putOnBoard(oriented, side);
     myHand.splice(origIdx, 1); selectedIdx = null; canPass = false;
     boneyardCount = aiBoneyard.length; oppHandCount = aiHand.length;
-    if (myHand.length === 0) { render(); endAIGame('Venceste! 🎉'); return; }
+    if (myHand.length === 0) { render(); startTimer(); endAIGame('Venceste! 🎉'); return; }
     if (checkBlock()) return;
-    currentTurn = 1; render(); setMsg('⏳ IA a pensar...');
+    currentTurn = 1; render(); startTimer(); setMsg('⏳ IA a pensar...');
     setTimeout(doAIMove, 1000);
   } else {
     ws.send(JSON.stringify({ type: 'place', tileIndex: origIdx, side }));
@@ -921,7 +926,7 @@ function drawTile() {
     if (myHand.some(t => canPlayTile(t))) setMsg('Peça comprada! Joga agora.');
     else if (aiBoneyard.length === 0) { canPass = true; setMsg('Sem mais peças! Passa a vez.'); }
     else setMsg('Sem jogada. Compra mais ou passa.');
-    render();
+    render(); startTimer();
   } else ws.send(JSON.stringify({ type: 'draw' }));
 }
 
@@ -930,7 +935,7 @@ function passTurn() {
   if (!isMyTurn || !canPass || gameOver) return;
   playSound('pass');
   if (isAIMode) {
-    canPass = false; currentTurn = 1; render();
+    canPass = false; currentTurn = 1; render(); startTimer();
     setMsg('⏳ IA a jogar...'); setTimeout(doAIMove, 800);
   } else ws.send(JSON.stringify({ type: 'pass' }));
 }
@@ -977,7 +982,22 @@ function launchGame() {
   document.getElementById('pname-opp').textContent = oppName;
   document.getElementById('avatar-opp').textContent = oppName.charAt(0).toUpperCase();
   document.getElementById('avatar-opp').className = isAIMode ? 'avatar avatar-ai' : 'avatar avatar-opp';
-  render();
+  render(); startTimer();
+}
+
+
+let turnTimer = null, timeLeft = 90;
+function startTimer() {
+  clearInterval(turnTimer); timeLeft = 90;
+  turnTimer = setInterval(() => {
+    const el = document.getElementById("turn-timer");
+    if (!el) return;
+    timeLeft--;
+    const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+    el.textContent = m + ":" + (s < 10 ? "0" : "") + s;
+    if (timeLeft <= 0) { clearInterval(turnTimer);
+    }
+  }, 1000);
 }
 
 function render() {
