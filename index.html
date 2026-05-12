@@ -709,7 +709,7 @@ body::before {
     </div>
 
     <div class="lobby-msg" id="lobby-msg"></div>
-    <button onclick="try{playSound('select');this.textContent='🔊 Som!'}catch(e){alert('Sound: '+e)}" class="btn btn-outline" style="font-size:11px;padding:6px 12px;margin-top:8px;">🔇 Test Som</button>
+    <button onclick="try{initAudio();playSound('select');this.textContent='🔊 Som Ligado!';this.style.background='var(--gold)';this.style.color='#111'}catch(e){}" class="btn btn-outline" style="font-size:12px;padding:8px 16px;margin-top:8px;">🔇 Ligar Som</button>
     <div class="room-code-box" id="room-code-box">
       <div class="code" id="room-code-display">—</div>
       <p>Partilha este código com o teu oponente</p>
@@ -796,6 +796,7 @@ const SERVER_URL = 'wss://domino-evo.onrender.com';
 // ══════════════════════════════════════
 // SOUNDS (Web Audio API)
 // ══════════════════════════════════════
+function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext);if(audioCtx.state==='suspended')audioCtx.resume();}
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 // Init sound on first interaction
