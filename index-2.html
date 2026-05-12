@@ -196,13 +196,11 @@ body::before {
 
 
 
-.ctrl-btn.quit-new {
   padding: 10px 15px;
   background: #c1440e;
   color: white;
   border-radius: 8px;
 }
-.btn-quit {
   position: fixed;
   top: 10px;
   right: 10px;
@@ -215,7 +213,6 @@ body::before {
   cursor: pointer;
   z-index: 50;
 }
-.btn-quit:hover { background: #e1550e; }
 
 
 /* Better piece glow */
@@ -709,13 +706,11 @@ body::before {
 .ctrl-btn.draw { background: var(--blue); color: #fff; }
 .ctrl-btn.draw:not(:disabled):hover { filter: brightness(1.2); transform: translateY(-1px); }
 
-.ctrl-btn.history-ctrl, .ctrl-btn.sound-ctrl, .ctrl-btn.quit-ctrl {
   padding: 10px 12px;
   font-size: 16px;
   min-width: 45px;
 }
 .ctrl-btn.sound-ctrl { background: #2d6a4f; }
-.ctrl-btn.quit-ctrl { background: #c1440e; }
 
 .ctrl-btn.pass { background: var(--red); color: #fff; }
 .ctrl-btn.pass:not(:disabled):hover { filter: brightness(1.2); transform: translateY(-1px); }
@@ -774,7 +769,6 @@ body::before {
 
 
 
-<!-- quit removed --> id="btn-quit" title="Desistir">❌ Sair</button>
 
 
 <!-- HISTORY PANEL -->
@@ -1423,8 +1417,6 @@ function selectTile(i) {
 // ══════════════════════════════════════
 // LAUNCH
 // ══════════════════════════════════════
-// Show quit button when game starts
-document.querySelectorAll('.quit-ctrl').forEach(b => b.style.display = 'inline-block');
 
 function launchGame() {
   document.getElementById('lobby').style.display = 'none';
