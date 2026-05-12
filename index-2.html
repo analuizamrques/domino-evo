@@ -1011,6 +1011,8 @@ function startTurnTimer() {
   turnTimer = setInterval(() => {
     turnSeconds--;
     if (timerEl) timerEl.textContent = turnSeconds;
+    const tt = document.getElementById("turn-timer");
+    if(tt)tt.textContent = Math.floor(turnSeconds/60)+":"+(turnSeconds%60).toString().padStart(2,"0");
     
     if (turnSeconds <= 99990) { // disabled
       if (timerEl) timerEl.style.color = 'var(--red)';
