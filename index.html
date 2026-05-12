@@ -463,8 +463,8 @@ function playSound(type) {
 }
 
 function playLobbyMusic() {
-  // Simple ambient melody on lobby
-  const notes = [261, 329, 392, 349, 329, 261, 294, 329];
+  // Latin instrumental - Cha Cha Cha style
+  const notes = [261, 311, 349, 311, 261, 294, 261, 349, 311, 261, 294, 261, 329, 349, 329, 261];
   notes.forEach((freq, i) => {
     setTimeout(() => {
       try {
@@ -474,7 +474,7 @@ function playLobbyMusic() {
         osc.connect(gain); gain.connect(audioCtx.destination);
         osc.frequency.value = freq;
         osc.type = 'sine';
-        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.10, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
         osc.start(); osc.stop(audioCtx.currentTime + 0.6);
       } catch(e) {}
