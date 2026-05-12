@@ -763,6 +763,17 @@ body::before {
   .half { width: 28px; height: 28px; padding: 3px; gap: 1px; }
   .ctrl-btn { padding: 8px 12px; font-size: 11px; }
 }
+
+/* FORCE SELECTED PIECES TO STAY SAME SIZE - OVERRIDE */
+.dom-piece.selected, .dom-piece.selected * {
+  transform: none !important;
+  font-size: inherit !important;
+  padding: inherit !important;
+  margin: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: unset;
+}
 </style>
 </head>
 <body>
