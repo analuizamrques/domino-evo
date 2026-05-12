@@ -1034,7 +1034,7 @@ function renderHalf(val, small) {
 function createPieceEl(tile, onBoard, idx, clickable) {
   const isDouble = tile.a === tile.b;
   // On board: doubles vertical, others horizontal. In hand: always vertical.
-  const horiz = onBoard && !isDouble;
+  const horiz = onBoard; // All pieces horizontal on board
   const el = document.createElement('div');
   el.className = 'dom-piece' + (horiz ? ' horizontal' : '') + (onBoard ? ' on-board' : '');
   const small = onBoard;
