@@ -11,6 +11,39 @@ const wss = new WebSocket.Server({ server });
 // Salas de jogo: roomId -> { players: [ws, ws], state: {} }
 const rooms = {};
 
+
+// Logger para debugging
+function logGame(roomId, action, data) {
+  const room = rooms[roomId];
+  if (!room || !room.state) return;
+  console.log(`[${new Date().toISOString()}] ${action}`, {
+    players: room.players.length,
+    board: room.state.board.length,
+    turn: room.state.currentTurn,
+    ...data
+  });
+}
+
+// Validar jogada
+function validateMove(tile, side, state, playerIndex) {
+  const hand = state.hands[playerIndex];
+  if (!hand) return { valid: false, reason: 'Mão não encontrada' };
+  
+  const tileInHand = hand.find(t => t.a === tile.a && t.b === tile.b);
+  if (!tileInHand) return { valid: false, reason: 'Peça não está na mão' };
+  
+  if (state.currentTurn !== playerIndex) {
+    return { valid: false, reason: 'Não é a sua vez' };
+  }
+  
+  if (!canPlayTile(tile, state)) {
+    return { valid: false, reason: 'Peça não encaixa no board' };
+  }
+  
+  return { valid: true };
+}
+
+
 function createAllTiles() {
   const t = [];
   for (let i = 0; i <= 6; i++)
