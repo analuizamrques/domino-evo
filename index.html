@@ -794,6 +794,22 @@ function playTileSound() { playSound('play'); }
 function playErrorSound() { playSound('error'); }
 function playWinSound() { playSound('win'); }
 
+function showConfetti() {
+  const colors = ['var(--gold)', 'var(--green)', 'var(--cream)', '#ff6b6b', '#4ecdc4'];
+  for (let i = 0; i < 50; i++) {
+    setTimeout(() => {
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.animationDuration = (2 + Math.random() * 2) + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 4000);
+    }, i * 30);
+  }
+}
+
+
 
 
 const PIP_LAYOUTS = {
