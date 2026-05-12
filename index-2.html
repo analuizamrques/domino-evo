@@ -122,7 +122,7 @@ body::before {
 
 /* PIECE ENTRY ANIMATION */
 .dom-piece {
-  //animation: piece-enter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  animation: piece-enter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
 }
 
 @keyframes piece-enter {
@@ -141,7 +141,7 @@ body::before {
 
 /* PLAY SLIDE ANIMATION */
 .dom-piece.slide-left {
-  disabled-animation: slide-left 0.3s ease-out forwards;
+  animation: slide-left 0.3s ease-out forwards;
 }
 
 @keyframes slide-left {
@@ -150,7 +150,7 @@ body::before {
 }
 
 .dom-piece.slide-right {
-  disabled-animation: slide-right 0.3s ease-out forwards;
+  animation: slide-right 0.3s ease-out forwards;
 }
 
 @keyframes slide-right {
@@ -160,7 +160,7 @@ body::before {
 
 /* FLIP IN */
 .dom-piece.flip {
-  disabled_animation: flip-in 0.5s ease-out forwards;
+  animation: flip-in 0.5s ease-out forwards;
   transform-style: preserve-3d;
 }
 
