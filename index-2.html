@@ -809,7 +809,7 @@ body::before {
         <label>Código da sala</label>
         <input id="room-input" placeholder="Ex: EVO123 (deixa vazio para criar)" maxlength="10"/>
       </div>
-      <button class="btn btn-gold btn-full" onclick="joinRoom()">🎮 Entrar / Criar Sala</button>
+      <button class="btn btn-gold btn-full" onclick="joinRoom()">Entrar / Criar Sala</button>
       <button class="btn btn-outline" style="font-size:12px;padding:8px 16px;margin-top:8px;" onclick="document.getElementById('mp-section').style.display='none'">⬅ Voltar</button>
     </div>
 
@@ -1106,7 +1106,7 @@ function newAIGame() {
     setMsg('🤖 IA começa...');
     setTimeout(aiMove, 1000);
   } else {
-    setMsg('🎮 Começas tu! Seleciona uma peça.');
+    setMsg('Começas tu! Seleciona uma peça.');
   }
 }
 
@@ -1293,7 +1293,7 @@ function handleMessage(msg) {
       setLobbyMsg('⏳ Aguardando oponente...');
       break;
     case 'opponent_joined':
-      setLobbyMsg('🎮 Oponente entrou! A iniciar...');
+      setLobbyMsg('Oponente entrou! A iniciar...');
       break;
     case 'joined':
       myIndex = msg.playerIndex;
@@ -1305,7 +1305,7 @@ function handleMessage(msg) {
       setLobbyMsg('⏳ Aguardando oponente...');
       break;
     case 'opponent_joined':
-      setLobbyMsg('🎮 Oponente entrou! A iniciar...');
+      setLobbyMsg('Oponente entrou! A iniciar...');
       break;
     case 'game_start':
       myIndex = msg.myIndex;
@@ -1321,7 +1321,7 @@ function handleMessage(msg) {
       document.getElementById('overlay').classList.remove('show');
       launchGame();
       render();
-      setMsg(currentTurn === myIndex ? '🎮 Começas tu! Seleciona uma peça.' : '⏳ Oponente começa...');
+      setMsg(currentTurn === myIndex ? 'Começas tu! Seleciona uma peça.' : '⏳ Oponente começa...');
       break;
     case 'state_update':
       myHand = msg.myHand;
@@ -1454,7 +1454,7 @@ function render() {
   const eqOpp = document.getElementById('eq-opp');
 
   if (isMyTurn) {
-    pill.textContent = '🎮 Tua vez!';
+    pill.textContent = 'Tua vez!';
     pill.classList.add('active');
     eqMe.classList.remove('paused');
     eqOpp.classList.add('paused');
