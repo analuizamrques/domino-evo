@@ -591,7 +591,7 @@ body::before {
 </div>
 
 <!-- TIMER -->
-<div id="timer-display" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);padding:12px 24px;background:rgba(0,0,0,0.8);border:2px solid var(--gold);border-radius:30px;font-size:24px;font-weight:700;color:var(--gold);z-index:30;">
+<div id="timer-display" style="display:none !important;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);padding:12px 24px;background:rgba(0,0,0,0.8);border:2px solid var(--gold);border-radius:30px;font-size:24px;font-weight:700;color:var(--gold);z-index:30;">
   <span id="timer-seconds">15</span>
 </div>
 
@@ -772,7 +772,7 @@ let isAIMode = false;
 // ══════════════════════════════════════
 let turnTimer = null;
 let turnSeconds = 15;
-const TIMER_DURATION = 15;
+const TIMER_DURATION = 99999; // Timer disabled
 
 function startTurnTimer() {
   turnSeconds = TIMER_DURATION;
@@ -786,11 +786,11 @@ function startTurnTimer() {
     turnSeconds--;
     if (timerEl) timerEl.textContent = turnSeconds;
     
-    if (turnSeconds <= 5) {
+    if (turnSeconds <= 99990) { // disabled
       if (timerEl) timerEl.style.color = 'var(--red)';
     }
     
-    if (turnSeconds <= 0) {
+    if (turnSeconds <= -1) { // disabled
       clearInterval(turnTimer);
       // Auto pass when time runs out
       if (canPass && currentTurn === myIndex) {
