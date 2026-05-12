@@ -117,6 +117,205 @@ body::before {
 }
 .room-code-box p { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
+
+
+/* PIECE ENTRY ANIMATION */
+.dom-piece {
+  animation: piece-enter 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes piece-enter {
+  0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* STAGGER DELAY */
+.hand .dom-piece:nth-child(1) { animation-delay: 0s; }
+.hand .dom-piece:nth-child(2) { animation-delay: 0.05s; }
+.hand .dom-piece:nth-child(3) { animation-delay: 0.1s; }
+.hand .dom-piece:nth-child(4) { animation-delay: 0.15s; }
+.hand .dom-piece:nth-child(5) { animation-delay: 0.2s; }
+.hand .dom-piece:nth-child(6) { animation-delay: 0.25s; }
+.hand .dom-piece:nth-child(7) { animation-delay: 0.3s; }
+
+/* PLAY SLIDE ANIMATION */
+.dom-piece.slide-left {
+  animation: slide-left 0.3s ease-out forwards;
+}
+
+@keyframes slide-left {
+  0% { transform: translateX(50px) rotate(10deg); opacity: 0; }
+  100% { transform: translateX(0) rotate(0); opacity: 1; }
+}
+
+.dom-piece.slide-right {
+  animation: slide-right 0.3s ease-out forwards;
+}
+
+@keyframes slide-right {
+  0% { transform: translateX(-50px) rotate(-10deg); opacity: 0; }
+  100% { transform: translateX(0) rotate(0); opacity: 1; }
+}
+
+/* FLIP IN */
+.dom-piece.flip {
+  animation: flip-in 0.5s ease-out forwards;
+  transform-style: preserve-3d;
+}
+
+@keyframes flip-in {
+  0% { transform: rotateY(90deg); opacity: 0; }
+  100% { transform: rotateY(0); opacity: 1; }
+}
+
+/* BOUNCE */
+.dom-piece.bounce {
+  animation: bounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes bounce {
+  0% { transform: scale(0); }
+  30% { transform: scale(1.2); }
+  50% { transform: scale(0.9); }
+  70% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* SPARKLE EFFECT */
+@keyframes sparkle {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.5) drop-shadow(0 0 10px var(--gold)); }
+}
+
+.dom-piece.just-played {
+  animation: sparkle 0.5s ease-out;
+}
+
+
+
+/* SCOREBOARD */
+.scoreboard {
+  position: fixed;
+  top: 20px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  z-index: 15;
+  background: rgba(0,0,0,0.85);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 8px 20px;
+  backdrop-filter: blur(10px);
+}
+
+.score-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.score-pill .label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+}
+
+.score-pill .value {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.score-pill.me .value { color: var(--gold); }
+.score-pill.opp .value { color: var(--blue); }
+
+.score-vs {
+  display: flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* WINNER OVERLAY */
+.winner-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fade-in 0.5s ease-out;
+}
+
+.winner-overlay h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 60px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: winner-bounce 1s ease-out;
+}
+
+@keyframes winner-bounce {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.winner-overlay .score-detail {
+  font-size: 18px;
+  color: var(--text);
+  margin-top: 20px;
+}
+
+.winner-overlay .new-game-btn {
+  margin-top: 30px;
+  padding: 14px 40px;
+  font-size: 16px;
+}
+
+
+/* BOARD GLOW */
+#board-area::before {
+  content: '';
+  position: absolute;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: board-glow 3s ease-in-out infinite;
+}
+
+@keyframes board-glow {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* TURN INDICATOR */
+.turn-pill.active {
+  animation: turn-pulse 1s ease-in-out infinite;
+}
+
+@keyframes turn-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0); }
+  50% { box-shadow: 0 0 20px 5px rgba(201,168,76,0.3); }
+}
+
+/* PIECE HOVER SOUND */
+.dom-piece:hover { playSound('select'); }
+
+
 /* ── GAME ── */
 #game {
   display: none; flex-direction: column;
@@ -196,8 +395,46 @@ body::before {
 .dom-piece {
   display: inline-flex; flex-direction: column;
   background: var(--piece-bg);
-  border: 1.5px solid var(--piece-border);
-  border-radius: 5px;
+  border: 2px solid var(--piece-border);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+.dom-piece:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(201,168,76,0.3), 0 0 20px rgba(201,168,76,0.2);
+  border-color: var(--gold);
+}
+.dom-piece.playable {
+  animation: pulse-gold 1.5s ease-in-out infinite;
+}
+.dom-piece.selected {
+  transform: translateY(-12px);
+  box-shadow: 0 16px 32px rgba(201,168,76,0.4);
+  border-color: var(--gold2);
+}
+.dom-piece.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.dom-piece.disabled:hover { transform: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 4px 12px rgba(201,168,76,0.2); }
+  50% { box-shadow: 0 4px 20px rgba(201,168,76,0.5), 0 0 30px rgba(201,168,76,0.3); }
+}
+
+@keyframes play-tile {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2) rotate(5deg); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.played-tile {
+  animation: play-tile 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
   cursor: pointer;
   box-shadow: 2px 3px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.6);
   transition: transform 0.15s, box-shadow 0.15s;
@@ -347,6 +584,18 @@ body::before {
 </head>
 <body>
 
+<!-- HISTORY PANEL -->
+<div id="history-panel" style="display:none;position:fixed;right:0;top:50%;transform:translateY(-50%);width:200px;max-height:300px;background:rgba(0,0,0,0.9);border:1px solid var(--border);border-radius:10px 0 0 10px;padding:12px;z-index:20;overflow-y:auto;">
+  <div style="font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">Histórico</div>
+  <div id="history-list" style="display:flex;flex-direction:column;gap:6px;"></div>
+</div>
+
+<!-- TIMER -->
+<div id="timer-display" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);padding:12px 24px;background:rgba(0,0,0,0.8);border:2px solid var(--gold);border-radius:30px;font-size:24px;font-weight:700;color:var(--gold);z-index:30;">
+  <span id="timer-seconds">15</span>
+</div>
+
+
 <!-- ══════════════ LOBBY ══════════════ -->
 <div id="lobby">
   <div class="lobby-logo">DOMINÓ</div>
@@ -459,6 +708,44 @@ body::before {
 // ══════════════════════════════════════
 const SERVER_URL = 'wss://domino-evo.onrender.com';
 
+
+// ══════════════════════════════════════
+// SOUNDS (Web Audio API)
+// ══════════════════════════════════════
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+function playSound(type) {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  
+  const sounds = {
+    select: { freq: 440, dur: 0.1, type: 'sine' },
+    play: { freq: 523, dur: 0.15, type: 'sine' },
+    error: { freq: 200, dur: 0.2, type: 'sawtooth' },
+    win: { freq: 659, dur: 0.3, type: 'sine' },
+    pass: { freq: 330, dur: 0.1, type: 'triangle' },
+    join: { freq: 587, dur: 0.15, type: 'sine' }
+  };
+  
+  const s = sounds[type] || sounds.select;
+  osc.frequency.setValueAtTime(s.freq, audioCtx.currentTime);
+  osc.type = s.type;
+  gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + s.dur);
+  osc.start();
+  osc.stop(audioCtx.currentTime + s.dur);
+}
+
+function playTileSound() { playSound('play'); }
+function playErrorSound() { playSound('error'); }
+function playWinSound() { playSound('win'); }
+
+
+
 const PIP_LAYOUTS = {
   0: [],
   1: [[1,1]],
@@ -479,6 +766,65 @@ let boneyardCount = 0, oppHandCount = 0;
 let boardLeftEnd = null, boardRightEnd = null;
 let myName = 'Tu', oppName = 'Oponente';
 let isAIMode = false;
+
+// ══════════════════════════════════════
+// TIMER & HISTORY
+// ══════════════════════════════════════
+let turnTimer = null;
+let turnSeconds = 15;
+const TIMER_DURATION = 15;
+
+function startTurnTimer() {
+  turnSeconds = TIMER_DURATION;
+  const timerEl = document.getElementById('timer-seconds');
+  const timerDisp = document.getElementById('timer-display');
+  
+  if (timerDisp) timerDisp.style.display = 'block';
+  
+  if (turnTimer) clearInterval(turnTimer);
+  turnTimer = setInterval(() => {
+    turnSeconds--;
+    if (timerEl) timerEl.textContent = turnSeconds;
+    
+    if (turnSeconds <= 5) {
+      if (timerEl) timerEl.style.color = 'var(--red)';
+    }
+    
+    if (turnSeconds <= 0) {
+      clearInterval(turnTimer);
+      // Auto pass when time runs out
+      if (canPass && currentTurn === myIndex) {
+        ws.send(JSON.stringify({type:'pass'}));
+      }
+    }
+  }, 1000);
+}
+
+function stopTurnTimer() {
+  if (turnTimer) clearInterval(turnTimer);
+  const timerDisp = document.getElementById('timer-display');
+  if (timerDisp) timerDisp.style.display = 'none';
+}
+
+function addToHistory(player, tile) {
+  const list = document.getElementById('history-list');
+  if (!list) return;
+  
+  const item = document.createElement('div');
+  item.style.cssText = 'font-size:12px;padding:4px 8px;background:var(--card);border-radius:4px;';
+  item.innerHTML = `<span style="color:${player === myIndex ? 'var(--gold)' : 'var(--blue)'}">${player === myIndex ? 'Tu' : 'Oponente'}</span> jogou <span style="font-weight:700;color:var(--gold)">[${tile.a}|${tile.b}]</span>`;
+  list.insertBefore(item, list.firstChild);
+  
+  // Keep only last 20
+  while (list.children.length > 20) list.removeChild(list.lastChild);
+}
+
+function showHistoryPanel() {
+  const panel = document.getElementById('history-panel');
+  if (panel) panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+
+
 
 // ══════════════════════════════════════
 // AI MODE (local, sem servidor)
