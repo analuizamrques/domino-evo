@@ -463,8 +463,11 @@ function playSound(type) {
 }
 
 function playLobbyMusic() {
-  // Latin instrumental - Cha Cha Cha style
-  const notes = [261, 311, 349, 311, 261, 294, 261, 349, 311, 261, 294, 261, 329, 349, 329, 261];
+  // Play lobby music from file
+  const audio = new Audio('./lobby-music.mp3');
+  audio.volume = 0.3;
+  audio.play().catch(e => console.log('Audio play failed:', e));
+  return;
   notes.forEach((freq, i) => {
     setTimeout(() => {
       try {
