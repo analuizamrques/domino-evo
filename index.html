@@ -818,7 +818,7 @@ body::before {
     </div>
 
     <div class="lobby-msg" id="lobby-msg"></div>
-    <button <button onclick="initAudio()" class="btn btn-outline" style="font-size:12px;padding:8px 16px;margin-top:8px;"> Ligar Som</button>
+    <button <button onclick="t=this;t.innerHTML="🔊"" style="font-size:12px;padding:8px 16px;margin-top:8px;"> Ligar Som</button>
     <div class="room-code-box" id="room-code-box">
       <div class="code" id="room-code-display">—</div>
       <p>Partilha este código com o teu oponente</p>
@@ -905,7 +905,7 @@ body::before {
 </div>
 
 <script>
-function start(){document.getElementById("game").style.display="flex";document.getElementById("lobby").style.display="none";}
+function lobby(){document.getElementById("mp-section").style.display="none";}{document.getElementById("game").style.display="flex";document.getElementById("lobby").style.display="none";}
 
 var audioCtx;
 // ══════════════════════════════════════
