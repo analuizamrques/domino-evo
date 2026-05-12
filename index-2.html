@@ -267,7 +267,7 @@ body::before {
 
 /* TOUCH - drag support */
 @media (hover: none) {
-  .dom-piece:active { transform: none; }
+  .dom-piece:active { transform: scale(0.95); }
 }
 
 
@@ -585,10 +585,10 @@ body::before {
 .dom-piece.playable {
   animation: pulse-gold 1.5s ease-in-out infinite;
 }
-
-.dom-piece.selected { border-color: var(--gold); background: rgba(212,175,55,0.2); }
 .dom-piece.selected {
-  border-color: var(--gold);
+  transform: translateY(-12px);
+  box-shadow: 0 16px 32px rgba(201,168,76,0.4);
+  border-color: var(--gold2);
 }
 .dom-piece.disabled {
   opacity: 0.4;
@@ -621,11 +621,11 @@ body::before {
   background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
   pointer-events: none; border-radius: 3px;
 }
-.dom-piece:hover { transform: none; box-shadow: 2px 8px 16px rgba(0,0,0,0.6); }
-
-.dom-piece.selected { border-color: var(--gold); background: rgba(212,175,55,0.2); }
+.dom-piece:hover { transform: translateY(-5px); box-shadow: 2px 8px 16px rgba(0,0,0,0.6); }
 .dom-piece.selected {
-  border-color: var(--gold);
+  border-color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+  box-shadow: 0 0 0 2px var(--gold), 2px 8px 16px rgba(0,0,0,0.6);
+  transform: translateY(-8px);
 }
 .dom-piece.on-board { cursor: default; }
 .dom-piece.on-board:hover { transform: none; box-shadow: 2px 3px 8px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.6); }
@@ -762,17 +762,6 @@ body::before {
 @media (max-width: 480px) {
   .half { width: 28px; height: 28px; padding: 3px; gap: 1px; }
   .ctrl-btn { padding: 8px 12px; font-size: 11px; }
-}
-
-/* FORCE SELECTED PIECES TO STAY SAME SIZE - OVERRIDE */
-.dom-piece.selected, .dom-piece.selected * {
-  transform: none !important;
-  font-size: inherit !important;
-  padding: inherit !important;
-  margin: 0 !important;
-  width: auto !important;
-  height: auto !important;
-  min-width: unset;
 }
 </style>
 </head>
@@ -1423,12 +1412,6 @@ function selectTile(i) {
   if (!isMyTurn || gameOver) return;
   if (selectedIdx !== i) try{playSound('select');}catch(e){}
   selectedIdx = (selectedIdx === i) ? null : i;
-    // Force reset ALL pieces to exact same dimensions
-    setTimeout(() => {
-      document.querySelectorAll('#my-hand .dom-piece').forEach(el => {
-        el.style.cssText = 'transform:none !important;font-size:inherit !important;padding:0 !important;margin:0 !important;width:50px !important;height:70px !important';
-      });
-    }, 10);
   renderMyHand();
   updateButtons();
 }
