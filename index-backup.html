@@ -771,7 +771,7 @@ body::before {
 <body>
 
 <button onclick="toggleGameSound()" id="btn-sound" title="Som">🔇</button>
-
+<button onclick="showHistory()" id="btn-history" title="Histórico">📜</button>
 <!-- quit removed --> id="btn-quit" title="Desistir">❌ Sair</button>
 
 
@@ -817,7 +817,7 @@ body::before {
     </div>
 
     <div class="lobby-msg" id="lobby-msg"></div>
-    <button onclick="initAudio();this.innerHTML="🔊 Som Ligado!"" class="btn btn-outline" style="font-size:12px;padding:8px 16px;margin-top:8px;">🔇 Ligar Som</button>
+    <button onclick="try{initAudio();playSound('select');this.textContent='🔊 Som Ligado!';this.style.background='var(--gold)';this.style.color='#111'}catch(e){}" class="btn btn-outline" style="font-size:12px;padding:8px 16px;margin-top:8px;">🔇 Ligar Som</button>
     <div class="room-code-box" id="room-code-box">
       <div class="code" id="room-code-display">—</div>
       <p>Partilha este código com o teu oponente</p>
@@ -876,10 +876,10 @@ body::before {
       <button class="ctrl-btn place" id="btn-left" onclick="placePiece('left')" disabled>⬅ Esquerda</button>
       <button class="ctrl-btn place" id="btn-right" onclick="placePiece('right')" disabled>Direita ➡</button>
       <button class="ctrl-btn draw" id="btn-draw" onclick="drawTile()" disabled>🎴 Comprar</button>
-      
+      <button onclick="quitGame()" class="ctrl-btn quit-new" style="background:#c1440e;margin-left:10px;">❌ Sair</button>
 <button onclick="showHistory()" class="ctrl-btn history-ctrl" style="background:#1a4e8a;" title="Histórico">📜</button>
 <button onclick="toggleGameSound()" class="ctrl-btn sound-ctrl" title="Som">🔇</button>
-
+<button onclick="quitGame()" class="ctrl-btn quit-ctrl" style="display:none;" title="Sair">❌</button>
 <button class="ctrl-btn pass" id="btn-pass" onclick="passTurn()" disabled>⏩ Passar</button>
     </div>
   </div>
@@ -909,7 +909,7 @@ const SERVER_URL = 'wss://domino-evo.onrender.com';
 // SOUNDS (Web Audio API)
 // ══════════════════════════════════════
 function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext);if(audioCtx.state==='suspended')audioCtx.resume();}
-var audioCtx;
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 // Init sound on first interaction
 let soundReady = false;
