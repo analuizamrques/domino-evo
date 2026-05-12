@@ -750,6 +750,19 @@ const SERVER_URL = 'wss://domino-evo.onrender.com';
 // ══════════════════════════════════════
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+// Init sound on first interaction
+let soundReady = false;
+function initSound() {
+  if (soundReady) return;
+  try {
+    audioCtx.resume();
+    soundReady = true;
+  } catch(e) {}
+}
+document.addEventListener('click', initSound, {once: true});
+document.addEventListener('touchstart', initSound, {once: true});
+
+
 function playSound(type) {
   if (audioCtx.state === 'suspended') audioCtx.resume();
   
