@@ -233,6 +233,10 @@ body::before {
 }
 
 /* Better buttons */
+
+.ctrl-btn:hover { transform: translateY(-2px); }
+.ctrl-btn:active { transform: translateY(0); }
+
 .ctrl-btn {
   background: var(--green);
   border-radius: 10px;
@@ -732,6 +736,10 @@ body::before {
 .ctrl-btns {
   display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;
 }
+
+.ctrl-btn:hover { transform: translateY(-2px); }
+.ctrl-btn:active { transform: translateY(0); }
+
 .ctrl-btn {
   background: var(--green);
   border-radius: 10px;
@@ -808,7 +816,11 @@ body::before {
 
 @media (max-width: 480px) {
   .half { width: 28px; height: 28px; padding: 3px; gap: 1px; }
-  .ctrl-btn {
+  
+.ctrl-btn:hover { transform: translateY(-2px); }
+.ctrl-btn:active { transform: translateY(0); }
+
+.ctrl-btn {
   background: var(--green);
   border-radius: 10px;
   font-weight: 600;
