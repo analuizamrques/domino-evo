@@ -209,6 +209,53 @@ body::before {
   .dom-piece:active { transform: scale(0.95); }
 }
 
+
+
+/* INTUITIVE SIDE SELECTOR */
+.side-selector {
+  position: fixed;
+  bottom: 120px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 50;
+}
+
+.side-btn {
+  padding: 16px 30px;
+  font-size: 18px;
+  font-weight: 700;
+  border: 3px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.side-btn:hover {
+  border-color: var(--gold);
+  transform: scale(1.05);
+}
+
+.side-btn.selected {
+  border-color: var(--gold);
+  background: var(--gold);
+  color: #111;
+  box-shadow: 0 0 20px rgba(201,168,76,0.5);
+}
+
+/* ARROWS */
+.side-btn::before {
+  content: '◀ ';
+  font-size: 14px;
+}
+.side-btn[data-side="right"]::before {
+  content: '▶ ';
+}
+
+
 /* SCOREBOARD */
 .scoreboard {
   position: fixed;
