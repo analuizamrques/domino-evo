@@ -1423,12 +1423,12 @@ function selectTile(i) {
   if (!isMyTurn || gameOver) return;
   if (selectedIdx !== i) try{playSound('select');}catch(e){}
   selectedIdx = (selectedIdx === i) ? null : i;
-    // Clear any transforms when selecting
-    document.querySelectorAll('.dom-piece.selected').forEach(el => {
-      el.style.transform = 'none';
-      el.style.fontSize = '';
-      el.style.padding = '';
-    });
+    // Force reset ALL pieces to exact same dimensions
+    setTimeout(() => {
+      document.querySelectorAll('#my-hand .dom-piece').forEach(el => {
+        el.style.cssText = 'transform:none !important;font-size:inherit !important;padding:0 !important;margin:0 !important;width:50px !important;height:70px !important';
+      });
+    }, 10);
   renderMyHand();
   updateButtons();
 }
