@@ -215,6 +215,8 @@ wss.on('connection', (ws) => {
       sendTo(ws, { type: 'joined', playerIndex: ws.playerIndex, roomId });
 
       if (room.players.length === 2) {
+        // Notify first player that opponent joined
+        broadcast(roomId, { type: 'opponent_joined' });
         console.log('BROADCAST opponent_joined to room', roomId, 'players:', room.players.length);
         setTimeout(() => startGame(roomId), 500);
       } else {
@@ -313,12 +315,9 @@ wss.on('connection', (ws) => {
     const room = rooms[ws.roomId];
     const idx = room.players.indexOf(ws);
     if (idx > -1) room.players.splice(idx, 1);
-    if (room.players.length > 0) {
-      broadcast(ws.roomId, { type: 'opponent_left' });
-    }
-    if (room.players.length === 0) {
-      delete rooms[ws.roomId];
-    }
+    // Always delete room when player leaves (even if game in progress)
+    delete rooms[ws.roomId];
+    console.log('Player left, room deleted:', ws.roomId);
   });
 });
 
