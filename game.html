@@ -791,7 +791,7 @@ body::before {
 
 <button onclick="toggleGameSound()" id="btn-sound" title="Som">🔇</button>
 <button onclick="showHistory()" id="btn-history" title="Histórico">📜</button>
-<!-- quit removed --> id="btn-quit" title="Desistir">❌ Sair</button>
+<!-- quit removed --> id="btn-quit" title="Desistir"> Sair</button>
 
 
 <!-- HISTORY PANEL -->
@@ -895,10 +895,10 @@ body::before {
       <button class="ctrl-btn place" id="btn-left" onclick="placePiece('left')" disabled>⬅ Esquerda</button>
       <button class="ctrl-btn place" id="btn-right" onclick="placePiece('right')" disabled>Direita ➡</button>
       <button class="ctrl-btn draw" id="btn-draw" onclick="drawTile()" disabled>🎴 Comprar</button>
-      <button onclick="quitGame()" class="ctrl-btn quit-new" style="background:#c1440e;margin-left:10px;">❌ Sair</button>
+      <button onclick="quitGame()" class="ctrl-btn quit-new" style="background:#c1440e;margin-left:10px;"> Sair</button>
 <!-- removed --> style="background:#1a4e8a;" title="Histórico">📜</button>
 <!-- removed --> title="Som">🔇</button>
-<!-- removed --> style="display:none;" title="Sair">❌</button>
+<!-- removed --> style="display:none;" title="Sair"></button>
 <button class="ctrl-btn pass" id="btn-pass" onclick="passTurn()" disabled>⏩ Passar</button>
     </div>
   </div>
@@ -1208,7 +1208,7 @@ function aiPlacePiece(side) {
   if (currentTurn !== 0 || selectedIdx === null || gameOver) return;
   const tile = myHand[selectedIdx];
   const oriented = aiTileEnds(tile, side);
-  if (!oriented) { setMsg('❌ Essa peça não encaixa nesse lado!'); return; }
+  if (!oriented) { setMsg(' Essa peça não encaixa nesse lado!'); return; }
 
   if (!board.length) {
     board.push({tile: oriented});
@@ -1295,7 +1295,7 @@ function joinRoom() {
     setLobbyMsg('✅ Ligado!');
     ws.send(JSON.stringify({type: 'join', roomId, playerName: myName}));
   };
-  ws.onerror = () => setLobbyMsg('❌ Erro de ligação. Tenta novamente.');
+  ws.onerror = () => setLobbyMsg(' Erro de ligação. Tenta novamente.');
   ws.onmessage = (e) => handleMessage(JSON.parse(e.data));
   ws.onclose = (e) => { if (!gameOver) setLobbyMsg('Ligação perdida (' + e.code + '). Recarrega.'); };
 }
@@ -1376,7 +1376,7 @@ function handleMessage(msg) {
       showOverlay('😔', 'Oponente saiu', 'A partida terminou.');
       break;
     case 'error':
-      setLobbyMsg('❌ ' + msg.message);
+      setLobbyMsg(' ' + msg.message);
       break;
   }
 }
