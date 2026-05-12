@@ -262,7 +262,7 @@ body::before {
 @media (max-width: 600px) {
   .lobby-card { padding: 20px 16px; }
   .lobby-logo { font-size: 40px; }
-  .player-badge .pname { max-width: 50px; }
+  .player-badge .pname { max-width: 40px; }
   .dom-piece { width: 40px; height: 56px; }
   #opp-area { gap: 2px; }
   .opp-back { width: 16px; height: 26px; }
@@ -672,7 +672,7 @@ body::before {
   flex-shrink: 0;
   background: rgba(0,0,0,0.3);
   border-top: 1px solid var(--border);
-  padding: 8px 12px 20px;
+  padding: 5px 10px 10px;
 }
 #my-hand {
   margin-top: -10px;
@@ -874,7 +874,7 @@ body::before {
   </div>
 
   <div id="controls">
-    <div id="msg">A aguardar...</div>
+    <div id="msg" style="position:fixed;top:90px;left:50%;transform:translateX(-50%);font-size:9px;z-index:50;">A aguardar...</div>
     <div class="ctrl-btns">
       <button class="ctrl-btn place" id="btn-left" onclick="placePiece('left')" disabled>⬅ Esquerda</button>
       <button class="ctrl-btn place" id="btn-right" onclick="placePiece('right')" disabled>Direita ➡</button>
