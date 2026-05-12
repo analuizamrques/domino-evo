@@ -211,6 +211,37 @@ body::before {
 
 
 
+
+.side-selector {
+  position: fixed;
+  bottom: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  z-index: 100;
+  padding: 15px 25px;
+  background: rgba(0,0,0,0.9);
+  border-radius: 15px;
+  border: 2px solid var(--gold);
+}
+
+.side-btn {
+  padding: 15px 40px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--gold);
+  cursor: pointer;
+}
+
+.side-btn:hover, .side-btn.selected {
+  background: var(--gold);
+  color: #111;
+}
+
 /* INTUITIVE SIDE SELECTOR */
 .side-selector {
   position: fixed;
@@ -674,7 +705,7 @@ body::before {
 </div>
 
 <!-- TIMER -->
-<div id="timer-display" style="display:none !important;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);padding:12px 24px;background:rgba(0,0,0,0.8);border:2px solid var(--gold);border-radius:30px;font-size:24px;font-weight:700;color:var(--gold);z-index:30;">
+<div id="timer-display" style="display:block;position:fixed;top:20px;left:50%;transform:translateX(-50%);position:fixed;top:20px";transform:translate(-50%,-50%);padding:12px 24px;background:rgba(0,0,0,0.8);border:2px solid var(--gold);border-radius:30px;font-size:24px;font-weight:700;color:var(--gold);z-index:30;">
   <span id="timer-seconds">15</span>
 </div>
 
@@ -886,7 +917,7 @@ let isAIMode = false;
 // ══════════════════════════════════════
 let turnTimer = null;
 let turnSeconds = 15;
-const TIMER_DURATION = 99999; // Timer disabled
+const TIMER_DURATION = 120; // 2 minutes
 
 function startTurnTimer() {
   turnSeconds = TIMER_DURATION;
