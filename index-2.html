@@ -802,7 +802,7 @@ body::before {
     <div class="divider">Modo de Jogo</div>
 
     <div class="mode-btns">
-      <button class="btn btn-outline" onclick="alert("VS IA");startAI()">🤖 Jogar vs IA</button>
+      <button class="btn btn-outline" onclick="document.getElementById('game').style.display = 'flex';document.getElementById('lobby').style.display = 'none'">🤖 Jogar vs IA</button>
       <button class="btn btn-outline" onclick="alert("Multiplayer");showMultiplayer()">👥 Multijogador</button>
     </div>
 
