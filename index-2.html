@@ -1423,6 +1423,12 @@ function selectTile(i) {
   if (!isMyTurn || gameOver) return;
   if (selectedIdx !== i) try{playSound('select');}catch(e){}
   selectedIdx = (selectedIdx === i) ? null : i;
+    // Clear any transforms when selecting
+    document.querySelectorAll('.dom-piece.selected').forEach(el => {
+      el.style.transform = 'none';
+      el.style.fontSize = '';
+      el.style.padding = '';
+    });
   renderMyHand();
   updateButtons();
 }
