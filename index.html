@@ -1259,7 +1259,7 @@ function mpCanPlay(t) {
 // ══════════════════════════════════════
 // AÇÕES DO JOGADOR
 // ══════════════════════════════════════
-function placePiece(side) {
+function placePiece(side) { try{playSound('play');}catch(e){}
   if (isAIMode) { aiPlacePiece(side); return; }
   if (currentTurn !== myIndex || selectedIdx === null || gameOver) return;
   ws.send(JSON.stringify({type: 'place', tileIndex: selectedIdx, side}));
@@ -1299,6 +1299,7 @@ function backToLobby() {
 function selectTile(i) {
   const isMyTurn = isAIMode ? currentTurn === 0 : currentTurn === myIndex;
   if (!isMyTurn || gameOver) return;
+  if (selectedIdx !== i) try{playSound('select');}catch(e){}
   selectedIdx = (selectedIdx === i) ? null : i;
   renderMyHand();
   updateButtons();
