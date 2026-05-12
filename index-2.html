@@ -90,12 +90,12 @@ body::before {
   font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600;
   cursor: pointer; transition: all 0.2s; letter-spacing: 0.5px;
 }
-.btn-gold {
+.btn-gold { border: 2px solid #000; 
   background: linear-gradient(135deg, var(--gold), var(--gold2));
   color: #1a1200;
 }
 .btn-gold:hover { filter: brightness(1.1); transform: translateY(-1px); }
-.btn-outline {
+.btn-outline { border: 2px solid #000; 
   background: transparent; border: 1px solid var(--border);
   color: var(--text);
 }
@@ -770,9 +770,8 @@ body::before {
 </head>
 <body>
 
-<button onclick="toggleGameSound()" id="btn-sound" title="Som">🔇</button>
-<button onclick="showHistory()" id="btn-history" title="Histórico">📜</button>
-<!-- quit removed --> id="btn-quit" title="Desistir">❌ Sair</button>
+
+
 
 
 <!-- HISTORY PANEL -->
@@ -788,7 +787,7 @@ body::before {
 
 
 <!-- ══════════════ LOBBY ══════════════ -->
-<div id="lobby">
+<div id="lobby" style="display:flex !important;">
   <div class="lobby-logo">DOMINÓ</div>
   <div class="lobby-sub">EVO — Edição Clássica</div>
 
@@ -808,16 +807,18 @@ body::before {
     </div>
 
     <div id="mp-section" style="display:none;flex-direction:column;gap:12px">
+      
       <div class="divider">Multijogador</div>
       <div class="input-group">
         <label>Código da sala</label>
         <input id="room-input" placeholder="Ex: EVO123 (deixa vazio para criar)" maxlength="10"/>
       </div>
       <button class="btn btn-gold btn-full" onclick="joinRoom()">🎮 Entrar / Criar Sala</button>
+      <button onclick="showLobby()" style="margin-top:10px;padding:10px;background:#333;color:#fff;border:none;border-radius:8px;cursor:pointer;">⬅ Voltar</button>
     </div>
 
     <div class="lobby-msg" id="lobby-msg"></div>
-    <button onclick="try{initAudio();playSound('select');this.textContent='🔊 Som Ligado!';this.style.background='var(--gold)';this.style.color='#111'}catch(e){}" class="btn btn-outline" style="font-size:12px;padding:8px 16px;margin-top:8px;">🔇 Ligar Som</button>
+    <button onclick="try{initAudio();playSound('select');this.textContent='🔊 Som Ligado!'}catch(e){alert('Erro')}initAudio();playSound('select');this.textContent='🔊 Som Ligado!';this.style.background='var(--gold)';this.style.color='#111'}catch(e){}" class="btn btn-outline" style="font-size:12px;padding:8px 16px;margin-top:8px;"> Ligar Som</button>
     <div class="room-code-box" id="room-code-box">
       <div class="code" id="room-code-display">—</div>
       <p>Partilha este código com o teu oponente</p>
@@ -826,9 +827,13 @@ body::before {
 </div>
 
 <!-- ══════════════ GAME ══════════════ -->
-<div id="game">
+<div id="game" style="display:none;">
   <div id="info-bar">
     <div class="player-badge me" id="badge-me">
+      <div style="display:flex;gap:8px;margin-left:8px;">
+        <button onclick="toggleGameSound()" style="background:none;border:none;cursor:pointer;font-size:16px;">🔊</button>
+        <button onclick="quitGame()" style="background:none;border:none;cursor:pointer;font-size:16px;">❌</button>
+      </div>
       <div class="avatar" id="avatar-me">A</div>
       <div>
         <div class="pname" id="pname-me">Tu</div>
@@ -867,19 +872,20 @@ body::before {
   </div>
 
   <div id="hand-section">
-    <div id="my-hand"></div>
+    <div id="turn-msg" style="text-align:center;padding:8px;font-size:14px;color:var(--gold);font-weight:600;">✅ Tua vez! Seleciona uma peça.</div>
+<div id="my-hand"></div>
   </div>
 
   <div id="controls">
-    <div id="msg">A aguardar...</div>
+    <div id="msg" style="position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(0,0,0,0.8);padding:8px 16px;border-radius:20px;">A aguardar...</div>
     <div class="ctrl-btns">
       <button class="ctrl-btn place" id="btn-left" onclick="placePiece('left')" disabled>⬅ Esquerda</button>
       <button class="ctrl-btn place" id="btn-right" onclick="placePiece('right')" disabled>Direita ➡</button>
       <button class="ctrl-btn draw" id="btn-draw" onclick="drawTile()" disabled>🎴 Comprar</button>
-      <button onclick="quitGame()" class="ctrl-btn quit-new" style="background:#c1440e;margin-left:10px;">❌ Sair</button>
-<button onclick="showHistory()" class="ctrl-btn history-ctrl" style="background:#1a4e8a;" title="Histórico">📜</button>
-<button onclick="toggleGameSound()" class="ctrl-btn sound-ctrl" title="Som">🔇</button>
-<button onclick="quitGame()" class="ctrl-btn quit-ctrl" style="display:none;" title="Sair">❌</button>
+      
+<button 
+
+
 <button class="ctrl-btn pass" id="btn-pass" onclick="passTurn()" disabled>⏩ Passar</button>
     </div>
   </div>
@@ -1074,7 +1080,9 @@ function shuffle(arr) {
   return a;
 }
 
-function startAI() {
+function showLobby(){document.getElementById("mp-section").style.display="none";document.getElementById("main-section").style.display="block";}
+function quitGame(){location.reload();}
+function toggleGameSound(){soundOn=!soundOn;}
   const name = document.getElementById('my-name').value.trim() || 'Tu';
   myName = name; oppName = '🤖 IA';
   isAIMode = true;
@@ -1257,6 +1265,12 @@ function aiEndByBlock() {
 // ══════════════════════════════════════
 // MULTIPLAYER
 // ══════════════════════════════════════
+function startAI(){
+  document.getElementById("lobby").style.display="none";
+  document.getElementById("game").style.display="flex";
+  isAIMode = true;
+  newAIGame();
+}
 function showMultiplayer() {
   document.getElementById('mp-section').style.display = 'flex';
 }
