@@ -363,7 +363,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
     </div>
 
     <div style="text-align:center;flex:1">
-      <div id="timer-section">⏱ <span class="time" id="turn-timer">1:30</span></div>
+      <div style="display:flex;align-items:center;gap:10px;">
+<div id="timer-section">⏱ <span class="time" id="turn-timer">1:30</span></div>
+<button onclick="backToLobby()" style="background:#c1440e;border:none;border-radius:8px;padding:6px 10px;color:white;font-size:11px;cursor:pointer;">Sair</button>
+</div>
  <div class="turn-pill" id="turn-pill">⏳</div>
       <div class="ai-dots" id="ai-dots">
         <div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div>
