@@ -877,7 +877,7 @@ body::before {
   </div>
 
   <div id="controls">
-    <div id="msg" style="position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(0,0,0,0.8);padding:8px 16px;border-radius:20px;">A aguardar...</div>
+    <div id="msg" style="position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:100;background:rgba(0,0,0,0.8);padding:8px 16px;border-radius:20px;">A iniciar...</div>
     <div class="ctrl-btns">
       <button class="ctrl-btn place" id="btn-left" onclick="placePiece('left')" disabled>⬅ Esquerda</button>
       <button class="ctrl-btn place" id="btn-right" onclick="placePiece('right')" disabled>Direita ➡</button>
@@ -905,7 +905,7 @@ body::before {
 </div>
 
 <script>
-function start(){document.getElementById("game").style.display="flex";document.getElementById("lobby").style.display="none";newAIGame();}
+function start(){document.getElementById("game").style.display="flex";document.getElementById("lobby").style.display="none";document.getElementById("msg").innerHTML="A iniciar...";setTimeout(function(){newAIGame();document.getElementById("msg").innerHTML="🎮 Teu turno!";},500);}
 
 var audioCtx;
 // ══════════════════════════════════════
