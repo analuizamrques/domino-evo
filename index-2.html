@@ -1087,6 +1087,7 @@ function startAI() {
 }
 
 function newAIGame() {
+  startTurnTimer();
   const all = shuffle(createAllTiles());
   aiMyHand = all.slice(0, 7);
   aiOppHand = all.slice(7, 14);
@@ -1097,7 +1098,7 @@ function newAIGame() {
 
   const myMax = aiMyHand.reduce((m, t) => t.a === t.b && t.a > m ? t.a : m, -1);
   const oppMax = aiOppHand.reduce((m, t) => t.a === t.b && t.a > m ? t.a : m, -1);
-  currentTurn = myMax >= oppMax ? 0 : 1; if(currentTurn===0)startTurnTimer();
+  currentTurn = myMax >= oppMax ? 0 : 1; startTurnTimer();
 
   myHand = [...aiMyHand];
   oppHandCount = aiOppHand.length;
