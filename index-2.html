@@ -69,7 +69,7 @@ body::before {
 }
 .lobby-card h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 18px; color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+  font-size: 18px; color: var(--gold); font-size: 16px; font-weight: 600;
   margin-bottom: 4px; text-align: center;
 }
 .input-group { display: flex; flex-direction: column; gap: 6px; }
@@ -80,7 +80,7 @@ body::before {
   color: var(--text); font-size: 15px; font-family: 'DM Sans', sans-serif;
   outline: none; transition: border-color 0.2s;
 }
-.input-group input:focus { border-color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px; }
+.input-group input:focus { border-color: var(--gold); font-size: 16px; font-weight: 600; }
 .input-group input::placeholder { color: var(--muted); }
 .divider { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 10px; }
 .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
@@ -99,13 +99,13 @@ body::before {
   background: transparent; border: 1px solid var(--border);
   color: var(--text);
 }
-.btn-outline:hover { border-color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px; color: var(--gold); }
+.btn-outline:hover { border-color: var(--gold); font-size: 16px; font-weight: 600; color: var(--gold); }
 .btn-full { grid-column: 1/-1; }
 .btn-green { background: var(--green); color: #fff; }
 .btn-green:hover { background: var(--green2); }
 .lobby-msg {
   font-size: 13px; text-align: center; min-height: 18px;
-  color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px; font-weight: 500;
+  color: var(--gold); font-size: 16px; font-weight: 600; font-weight: 500;
 }
 .room-code-box {
   background: var(--card); border: 1px dashed var(--gold);
@@ -294,7 +294,7 @@ body::before {
   border: 2px solid var(--gold);
   border-radius: 10px;
   background: var(--card);
-  color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+  color: var(--gold); font-size: 16px; font-weight: 600;
   cursor: pointer;
 }
 
@@ -327,12 +327,12 @@ body::before {
 }
 
 .side-btn:hover {
-  border-color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+  border-color: var(--gold); font-size: 16px; font-weight: 600;
   transform: scale(1.05);
 }
 
 .side-btn.selected {
-  border-color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+  border-color: var(--gold); font-size: 16px; font-weight: 600;
   background: var(--gold);
   color: #111;
   box-shadow: 0 0 20px rgba(201,168,76,0.5);
@@ -384,7 +384,7 @@ body::before {
   line-height: 1;
 }
 
-.score-pill.me .value { color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px; }
+.score-pill.me .value { color: var(--gold); font-size: 16px; font-weight: 600; }
 .score-pill.opp .value { color: var(--blue); }
 
 .score-vs {
@@ -522,14 +522,14 @@ body::before {
 .player-badge.opp .avatar { background: var(--blue); color: #fff; }
 .player-badge.ai-badge .avatar { background: var(--red); color: #fff; }
 .player-badge .pname { font-weight: 600; max-width: 80px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.player-badge .pts { color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 13px; }
+.player-badge .pts { color: var(--gold); font-size: 16px; font-weight: 600; font-weight: 700; font-size: 13px; }
 .turn-pill {
   font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
   padding: 5px 14px; border-radius: 20px;
   background: var(--card); border: 1px solid var(--border);
   color: var(--muted); transition: all 0.3s;
 }
-.turn-pill.active { background: rgba(201,168,76,0.15); border-color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px; color: var(--gold); }
+.turn-pill.active { background: rgba(201,168,76,0.15); border-color: var(--gold); font-size: 16px; font-weight: 600; color: var(--gold); }
 
 /* OPP HAND */
 #opp-section {
@@ -580,7 +580,7 @@ body::before {
 .dom-piece:hover {
   transform: translateY(-8px) scale(1.05);
   box-shadow: 0 12px 24px rgba(201,168,76,0.3), 0 0 20px rgba(201,168,76,0.2);
-  border-color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+  border-color: var(--gold); font-size: 16px; font-weight: 600;
 }
 .dom-piece.playable {
   animation: pulse-gold 1.5s ease-in-out infinite;
@@ -623,7 +623,7 @@ body::before {
 }
 .dom-piece:hover { transform: translateY(-5px); box-shadow: 2px 8px 16px rgba(0,0,0,0.6); }
 .dom-piece.selected {
-  border-color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+  border-color: var(--gold); font-size: 16px; font-weight: 600;
   box-shadow: 0 0 0 2px var(--gold), 2px 8px 16px rgba(0,0,0,0.6);
   transform: translateY(-8px);
 }
@@ -688,7 +688,15 @@ body::before {
   align-items: center;
 }
 #msg {
-  font-size: 10px; color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  background: rgba(212,175,55,0.15);
+  border: 2px solid var(--gold);
+  border-radius: 20px;
+  padding: 8px 20px;
+  margin: 5px auto;
+  display: inline-block;
+  font-size: 10px; color: var(--gold); font-size: 16px; font-weight: 600;
   font-weight: 500; letter-spacing: 0.5px;
   text-align: center; width: 100%;
 }
@@ -731,7 +739,7 @@ body::before {
 .overlay-card .trophy { font-size: 48px; margin-bottom: 12px; }
 .overlay-card h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 24px; color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px; margin-bottom: 8px;
+  font-size: 24px; color: var(--gold); font-size: 16px; font-weight: 600; margin-bottom: 8px;
 }
 .overlay-card p { color: var(--muted); font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
 .overlay-btns { display: flex; gap: 10px; justify-content: center; }
@@ -757,7 +765,7 @@ body::before {
   border-radius: 8px; padding: 6px 10px;
   font-size: 11px; color: var(--muted); backdrop-filter: blur(4px);
 }
-.boneyard-info span { color: var(--gold); font-size: 14px; font-weight: 500; padding: 6px 14px; border-radius: 20px; font-weight: 600; }
+.boneyard-info span { color: var(--gold); font-size: 16px; font-weight: 600; font-weight: 600; }
 
 @media (max-width: 480px) {
   .half { width: 28px; height: 28px; padding: 3px; gap: 1px; }
