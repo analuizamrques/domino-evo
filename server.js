@@ -165,7 +165,7 @@ wss.on('connection', (ws) => {
     let msg;
     try { msg = JSON.parse(raw); } catch { return; }
 
-    if (msg.type === 'join') {
+    console.log('JOIN from', msg.playerName, 'room', msg.roomId);
       const roomId = msg.roomId || 'default';
       if (!rooms[roomId]) rooms[roomId] = { players: [], state: null };
       const room = rooms[roomId];
@@ -177,12 +177,12 @@ wss.on('connection', (ws) => {
 
       ws.roomId = roomId;
       ws.playerIndex = room.players.length;
-      room.players.push(ws);
+      room.players.push(ws); console.log('Player added, total:', room.players.length);
 
       sendTo(ws, { type: 'joined', playerIndex: ws.playerIndex, roomId });
 
       if (room.players.length === 2) {
-        broadcast(roomId, { type: 'opponent_joined' });
+        console.log('BROADCAST opponent_joined to room', roomId, 'players:', room.players.length);
         setTimeout(() => startGame(roomId), 500);
       } else {
         sendTo(ws, { type: 'waiting', message: 'Aguardando oponente...' });
