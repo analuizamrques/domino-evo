@@ -193,6 +193,22 @@ body::before {
 
 
 
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .lobby-card { padding: 20px 16px; }
+  .lobby-logo { font-size: 40px; }
+  .player-badge .pname { max-width: 50px; }
+  .dom-piece { width: 40px; height: 56px; }
+  #opp-area { gap: 2px; }
+  .opp-back { width: 16px; height: 26px; }
+}
+
+/* TOUCH - drag support */
+@media (hover: none) {
+  .dom-piece:active { transform: scale(0.95); }
+}
+
 /* SCOREBOARD */
 .scoreboard {
   position: fixed;
@@ -284,6 +300,26 @@ body::before {
   font-size: 16px;
 }
 
+
+
+/* CONFETTI */
+@keyframes confetti-fall {
+  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.confetti-piece {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  animation: confetti-fall 3s linear forwards;
+  z-index: 200;
+}
+
+.confetti-gold { background: var(--gold); }
+.confetti-green { background: var(--green); }
+.confetti-cream { background: var(--cream); }
 
 /* BOARD GLOW */
 #board-area::before {
