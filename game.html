@@ -822,8 +822,8 @@ body::before {
 </head>
 <body>
 
-<button onclick="toggleGameSound()" id="btn-sound" style="display:none;"></button>
-<button onclick="showHistory()" style="display:none;" id="btn-history" style="display:none;"></button>
+<button onclick="toggleGameSound()" id="btn-sound" </button>
+<button onclick="showHistory()" style="display:none;" id="btn-history" </button>
  id="btn-quit" style="display:none;" title="Desistir"> Sair</button>
 
 
@@ -869,7 +869,7 @@ body::before {
     </div>
 
     <div class="lobby-msg" id="lobby-msg"></div>
-    <button onclick="try{initAudio();playSound('select');this.textContent='🔊 Som Ligado!';this.style.background='var(--gold)';this.style.color='#111'}catch(e){}" class="btn btn-outline" style="font-size:12px;padding:8px 16px;margin-top:8px;">🔇 Ligar Som</button>
+    <button onclick="try{initAudio();playSound('select');this.textContent='🔊 Som Ligado!';this.style.background='var(--gold)';this.style.color='#111'}catch(e){}" class="btn btn-outline" style="font-size:12px;padding:8px 16px;margin-top:8px;">Ligar Som</button>
     <div class="room-code-box" id="room-code-box">
       <div class="code" id="room-code-display">—</div>
       <p>Partilha este código com o teu oponente</p>
@@ -894,7 +894,7 @@ body::before {
 
     <div class="turn-pill" id="turn-pill">⏳ Aguardar</div>
 
-    <div class="player-badge opp" id="badge-opp">
+    <div class="player-badge opp" id="badge-opp" style="display:none;">
       <div class="eq paused" id="eq-opp">
         <div class="eq-bar"></div><div class="eq-bar"></div>
         <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
@@ -929,8 +929,8 @@ body::before {
       <button class="ctrl-btn place" id="btn-right" onclick="placePiece('right')" disabled>Direita ➡</button>
       <button class="ctrl-btn draw" id="btn-draw" style="padding:15px 30px;font-size:16px;background:var(--green);border:none;border-radius:8px;" onclick="drawTile()" disabled>🎴 Comprar</button>
       <button onclick="quitGame()" class="ctrl-btn quit-new" style="background:#c1440e;margin-left:10px;"> Sair</button>
-<!-- removed --> style="display:none;" style="display:none;"></button>
-<!-- removed --> style="display:none;"></button>
+<!-- removed --> </button>
+<!-- removed --> </button>
 <!-- removed --> style="display:none;" title="Sair"></button>
 <button class="ctrl-btn" 
 <button class="ctrl-btn" style="padding:15px 30px;font-size:16px;background:var(--gold);color:#1a1200;border:none;border-radius:8px;" id="btn-pass" onclick="passTurn()" disabled>⏩ Passar</button>
