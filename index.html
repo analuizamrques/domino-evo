@@ -713,6 +713,18 @@ function handleMessage(msg) {
   switch(msg.type) {
     case 'joined':
       myIndex = msg.playerIndex;
+      document.getElementById('room-info').style.display = 'block';
+      document.getElementById('room-code').textContent = msg.roomId;
+      setLobbyMsg(myIndex === 0 ? '✅ Sala criada! Código: ' + msg.roomId + ' - Aguarda o oponente...' : '✅ Entraste na sala!');
+      break;
+    case 'waiting':
+      setLobbyMsg('⏳ Aguardando oponente...');
+      break;
+    case 'opponent_joined':
+      setLobbyMsg('🎮 Oponente entrou! A iniciar...');
+      break;
+    case 'joined':
+      myIndex = msg.playerIndex;
       document.getElementById('room-code-box').style.display = 'block';
       document.getElementById('room-code-display').textContent = msg.roomId;
       setLobbyMsg(myIndex === 0 ? '✅ Sala criada! Aguarda o teu oponente...' : '✅ Entraste!');
